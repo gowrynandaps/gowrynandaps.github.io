@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quadruped Leg Design — Gowrynanda PS</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../../" class="nav-logo">GPS://research</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../#about">About</a></li>
+      <li><a href="../../#skills">Skills</a></li>
+      <li><a href="../../#research">Research</a></li>
+      <li><a href="../../#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="project-hero">
+  <div class="container">
+    <a href="../../#research" class="back-link">← Back to Research</a>
+    <div class="project-meta">
+      <span class="meta-item">Type: <span>M.Tech Thesis</span></span>
+      <span class="meta-item">Period: <span>May 2025 – Present</span></span>
+      <span class="meta-item">Lab: <span>Autonomous Systems Lab, IIT Madras</span></span>
+      <span class="meta-item">Guide: <span>Dr. Bijo Sebastian</span></span>
+    </div>
+    <h1 class="project-detail-title">Trajectory Planning &amp; Control of a Low-Cost Quadruped Leg Design</h1>
+    <p class="project-detail-intro">
+      A full-stack robotics project: designing a novel two-link quadruped leg with a Rotary Series
+      Elastic Actuator (RSEA), building a simulation testbed in CoppeliaSim, and validating
+      joint-space PD control on physical hardware driven by an ESP32 and ODrive motor controller.
+    </p>
+  </div>
+</div>
+
+<div class="project-content">
+  <div class="container">
+
+    <div class="content-block">
+      <h2>Overview</h2>
+      <p>
+        Legged robots need actuators that can absorb impacts, measure ground forces, and generate
+        compliant motion — especially at low cost. This project introduces a Rotary Series Elastic
+        Actuator (RSEA) integrated into a two-link quadruped leg (L1 = 0.15 m, L2 = 0.225 m)
+        to achieve greater impact tolerance and torque output than traditional rigid drives.
+      </p>
+      <p>
+        The work spans the full development pipeline: mechanical design in Fusion 360, dynamics
+        modelling, CoppeliaSim simulation with torque-level actuation, and hardware bring-up
+        with encoder-based feedback control.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>System Architecture</h2>
+      <ul>
+        <li><strong>Mechanical Design:</strong> Two-link leg (L1 = 0.15 m, L2 = 0.225 m) with RSEA at each joint; spring compression measured as torque proxy.</li>
+        <li><strong>Sensing:</strong> 2400 CPR quadrature encoders for joint angle feedback; HX711 + YZC-516C load cell for ground reaction force measurement.</li>
+        <li><strong>Electronics:</strong> ODrive motor controller in velocity mode, commanded over UART from ESP32 microcontroller.</li>
+        <li><strong>Control:</strong> Cascaded joint-space PD controller with velocity saturation, gain-scheduled across swing/stance phases.</li>
+        <li><strong>Simulation:</strong> Full CoppeliaSim testbed with Lua scripting and Python Remote API; multi-height gait trajectory validated in sim before hardware deployment.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Key Results</h2>
+      <p>
+        <!--  Fill in your actual results here once experiments are complete. Examples: -->
+        Achieved stable height-switching gait trajectories in simulation across [X] mm range.
+        Hardware tracking error converged to within [X]° with the tuned PD controller.
+        Terrain perception using the Koopman framework is currently being integrated for
+        sensor-less terrain stiffness detection.
+      </p>
+      <!-- MEDIA: Add your result images/plots below -->
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: leg prototype photo ]</div>
+          <p class="media-caption">// Physical leg prototype with RSEA</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: CoppeliaSim simulation screenshot ]</div>
+          <p class="media-caption">// CoppeliaSim simulation testbed</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: tracking error plot ]</div>
+          <p class="media-caption">// Joint tracking error (hardware)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Demo Video</h2>
+      <!--
+        OPTION A — YouTube embed:
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        OPTION B — Local video file:
+        <video controls style="width:100%; border-radius:8px; border:1px solid var(--border);">
+          <source src="../../assets/videos/quadruped-demo.mp4" type="video/mp4" />
+        </video>
+      -->
+      <div class="media-item" style="max-width:700px;">
+        <div class="media-placeholder" style="height:300px;">[ Add video: YouTube embed or local .mp4 ]</div>
+        <p class="media-caption">// Hardware demonstration video</p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Ongoing Work</h2>
+      <p>
+        Currently integrating terrain perception using the Koopman operator framework for
+        sensor-less terrain stiffness detection — distinguishing swing and stance phases from
+        encoder data alone, and using eigen analysis of the stance Koopman generators to adapt
+        controller gains in real time.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Gowrynanda PS · <a href="../../#research">← All Projects</a></p>
+</footer>
+
+</body>
+</html>
