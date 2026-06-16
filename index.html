@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gowrynanda PS — Robotics Researcher</title>
+  <meta name="description" content="Gowrynanda PS — Dual Degree Robotics student at IIT Madras working on legged locomotion, control systems, and autonomous robots." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">GPS://research</span>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <p class="hero-eyebrow">// IIT Madras · Autonomous Systems Lab</p>
+        <h1 class="hero-name">Gowrynanda <span>PS</span></h1>
+        <p class="hero-title">
+          Dual Degree (B.Tech + M.Tech) in Mechanical Engineering &amp; Robotics<br>
+          Legged Locomotion · Control Systems · Embedded Hardware
+        </p>
+        <p class="hero-bio">
+          I build robots that move reliably in the real world. My research spans trajectory
+          planning, series elastic actuation, terrain-adaptive locomotion, and safe control
+          using Control Barrier Functions — from simulation all the way to physical hardware validation.
+        </p>
+        <div class="hero-ctas">
+          <a href="#research" class="btn-primary">View Research</a>
+          <a href="assets/GowrynandaPS_CV.pdf" class="btn-outline" target="_blank">Download CV</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <!--
+          REPLACE the placeholder below with your actual photo:
+          <img src="assets/images/photo.jpg" alt="Gowrynanda PS" class="hero-photo" />
+        -->
+        <div class="hero-photo-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span>Add your photo here<br>(assets/images/photo.jpg)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">01 / About</p>
+      <h2 class="section-title">Who I Am</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a final-year Dual Degree student at IIT Madras (CGPA: 9.01/10), specialising in Robotics.
+          My research is rooted in the intersection of mechanical design, dynamics, and real-time
+          control — with a particular focus on legged robots that can handle the unpredictability
+          of real terrain.
+        </p>
+        <p>
+          My thesis project involves designing, building, and controlling a two-link quadruped leg
+          using a novel Rotary Series Elastic Actuator (RSEA). I work across the full stack — from
+          CoppeliaSim simulations and Jacobian-based control to ESP32/ODrive firmware and encoder
+          signal processing.
+        </p>
+        <p>
+          Beyond legged robots, I've worked on cable-driven underwater manipulators
+          (with Oceaneering, USA), smart compression garments, and autonomous afforestation drones.
+          I also enjoy teaching — I served as TA for IIT Madras's first-ever Robot Control course.
+        </p>
+        <p>
+          Outside the lab: fine arts (acrylic painting, national-level accolades), robotics
+          workshop trainer at Shaastra, and founder of CFI's Sponsorship &amp; Industrial Relations team.
+        </p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">9.01</span>
+          <span class="stat-label">CGPA / 10</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">4+</span>
+          <span class="stat-label">Research Projects</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">1</span>
+          <span class="stat-label">Patent Granted</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">120+</span>
+          <span class="stat-label">Students Taught</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ── -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">02 / Skills</p>
+      <h2 class="section-title">Technical Toolkit</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <p class="skill-category-title">Programming Languages</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">MATLAB</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Lua</span>
+          <span class="skill-tag">LaTeX</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <p class="skill-category-title">Robotics &amp; Simulation</p>
+        <div class="skill-tags">
+          <span class="skill-tag">ROS</span>
+          <span class="skill-tag">CoppeliaSim</span>
+          <span class="skill-tag">Simulink</span>
+          <span class="skill-tag">Arduino IDE</span>
+          <span class="skill-tag">Mathematica</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <p class="skill-category-title">CAD &amp; Design</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Fusion 360</span>
+          <span class="skill-tag">SolidWorks</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <p class="skill-category-title">Control &amp; Theory</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Nonlinear Control</span>
+          <span class="skill-tag">Optimal Control</span>
+          <span class="skill-tag">CBF / CLF</span>
+          <span class="skill-tag">Koopman Operators</span>
+          <span class="skill-tag">Reinforcement Learning</span>
+          <span class="skill-tag">Motion Planning</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <p class="skill-category-title">Embedded &amp; Hardware</p>
+        <div class="skill-tags">
+          <span class="skill-tag">ESP32</span>
+          <span class="skill-tag">ODrive</span>
+          <span class="skill-tag">Arduino</span>
+          <span class="skill-tag">HX711 Load Cell</span>
+          <span class="skill-tag">Encoder Interfacing</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <p class="skill-category-title">Research Skills</p>
+        <div class="skill-tags">
+          <span class="skill-tag">System Identification</span>
+          <span class="skill-tag">Trajectory Planning</span>
+          <span class="skill-tag">Hardware Validation</span>
+          <span class="skill-tag">Data-Driven Control</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Education ── -->
+<section id="education">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">03 / Education</p>
+      <h2 class="section-title">Academic Background</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="edu-timeline">
+      <div class="edu-item">
+        <p class="edu-year">2021 — 2026 (Expected)</p>
+        <p class="edu-school">Indian Institute of Technology Madras</p>
+        <p class="edu-degree">B.Tech (Hons.) in Mechanical Engineering + M.Tech in Robotics</p>
+        <p class="edu-grade">CGPA: 9.01 / 10 · MCM Scholarship Recipient</p>
+      </div>
+      <div class="edu-item">
+        <p class="edu-year">2021</p>
+        <p class="edu-school">Christ Nagar Senior Secondary School, Thiruvallam</p>
+        <p class="edu-degree">Class XII · CBSE</p>
+        <p class="edu-grade">99.2% · JEE Advanced AIR 3991 · Top 0.5% JEE Mains</p>
+      </div>
+      <div class="edu-item">
+        <p class="edu-year">2019</p>
+        <p class="edu-school">Indian School Al Seeb, Muscat, Oman</p>
+        <p class="edu-degree">Class X · CBSE</p>
+        <p class="edu-grade">99% · 1st Rank in Oman · 2nd Rank in Gulf (14M students)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Research Projects ── -->
+<section id="research">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">04 / Research</p>
+      <h2 class="section-title">Projects &amp; Research</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="projects-grid">
+
+      <a href="projects/quadruped-leg/" class="project-card">
+        <!--
+          Add project image: <img src="assets/images/quadruped-thumb.jpg" alt="Quadruped Leg" class="project-img" />
+        -->
+        <div class="project-img-placeholder">[ quadruped-leg.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Thesis · May 2025 – Present</p>
+          <h3 class="project-title">Trajectory Planning &amp; Control of a Low-Cost Quadruped Leg</h3>
+          <p class="project-desc">
+            Built a 2-DOF quadruped leg prototype with a Rotary Series Elastic Actuator. Developed
+            a complete dynamics + control framework in CoppeliaSim and validated joint-space PD
+            control on physical hardware (ESP32 + ODrive).
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/underwater-manipulator/" class="project-card">
+        <div class="project-img-placeholder">[ underwater-manipulator.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Industry Collab · Oct 2024 – Present</p>
+          <h3 class="project-title">Low-Inertia Cable-Driven Underwater Manipulator</h3>
+          <p class="project-desc">
+            Collaborated with Oceaneering (Houston, USA) to design a cable-driven underwater
+            manipulator with optimised pulley routing. Implemented gravity-compensated PID and
+            optimal control strategies validated in dynamic simulation.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/cbf-navigation/" class="project-card">
+        <div class="project-img-placeholder">[ cbf-navigation.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Course Project · Jan 2026 – Present</p>
+          <h3 class="project-title">Lyapunov-Based CBF for Safe 3D Navigation</h3>
+          <p class="project-desc">
+            Developed a spatially-shifted Control Barrier Function framework using a single CLF and
+            translational symmetry. Real-time CBF-QP optimisation at 30 ms on a 10-state quadrotor model.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/compression-garment/" class="project-card">
+        <div class="project-img-placeholder">[ compression-garment.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Research · May 2023 – Mar 2024</p>
+          <h3 class="project-title">Smart Compression Garment for Hypotension Prevention</h3>
+          <p class="project-desc">
+            Integrated force-resistive sensors into a compression garment for real-time pressure
+            monitoring in paraplegic individuals. Built a closed-loop feedback controller to prevent
+            pressure sores.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/afforestation-drone/" class="project-card">
+        <div class="project-img-placeholder">[ afforestation-drone.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Patent · May 2022 – Apr 2023</p>
+          <h3 class="project-title">Autonomous Afforestation Drone with Robotic Manipulator</h3>
+          <p class="project-desc">
+            Designed and fabricated a lightweight robotic arm integrated with a hexacopter for
+            autonomous soil analysis and seed sowing. Resulted in Patent No. 549953.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Achievements ── -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">05 / Achievements</p>
+      <h2 class="section-title">Scholastic &amp; Other Highlights</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="achievements-list">
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">1st rank in Oman &amp; 2nd rank in Gulf in CBSE Class X (out of 14 million students)</p>
+      </div>
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">Top 0.5% in JEE Mains 2021; AIR 3991 in JEE Advanced 2021</p>
+      </div>
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">MCM Scholarship at IIT Madras for outstanding academic performance</p>
+      </div>
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">Patent granted (No. 549953) for Mass Afforestation Drone design</p>
+      </div>
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">4th place in National Robotics Challenge, Unacademy (~100 teams)</p>
+      </div>
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">Shastra Prathibha winner for two consecutive years (2017, 2018)</p>
+      </div>
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">Reduced detergent manufacturing utility costs by 30% at Procter &amp; Gamble internship (₹30M annual savings)</p>
+      </div>
+      <div class="achievement-item">
+        <span class="achievement-dot"></span>
+        <p class="achievement-text">Professionally trained in Fine Arts since 2010; national accolades in sustainability poster making</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <p class="section-label">06 / Contact</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="section-divider" style="margin: 1rem auto 0;"></div>
+    </div>
+    <p style="color: var(--muted); max-width: 500px; margin: 0 auto 0.5rem; font-size: 0.95rem;">
+      Open to research collaborations, PhD opportunities, and interesting robotics problems.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:me21b066@smail.iitm.ac.in" class="contact-chip">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        me21b066@smail.iitm.ac.in
+      </a>
+      <a href="https://github.com/gowrynandaps" class="contact-chip" target="_blank">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/gowrynanda-ps" class="contact-chip" target="_blank">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="assets/GowrynandaPS_CV.pdf" class="contact-chip" target="_blank">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+        Download CV
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Gowrynanda PS · Built with HTML/CSS · Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
