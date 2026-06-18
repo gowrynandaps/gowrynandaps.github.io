@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Koopman Terrain Detection — Gowrynanda PS</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../" class="nav-logo">GPS://research</a>
+    <ul class="nav-links">
+      <li><a href="../../#about">About</a></li>
+      <li><a href="../../#research">Research</a></li>
+      <li><a href="../../#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="project-hero">
+  <div class="container">
+    <a href="../../#research" class="back-link">← Back to Research</a>
+    <div class="project-meta">
+      <span class="meta-item">Type: <span>Course Project</span></span>
+      <span class="meta-item">Period: <span>Jul 2025 – Nov 2025</span></span>
+      <span class="meta-item">Course: <span>Data Driven Control — Prof. Puduru Viswanadha Reddy</span></span>
+    </div>
+    <h1 class="project-detail-title">Data-Driven Terrain Detection for Quadruped Locomotion</h1>
+    <p class="project-detail-intro">
+      Approximated quadruped leg dynamics as a Koopman-based switched dynamic system,
+      distinguishing swing and stance phases from encoder data alone — and predicting terrain
+      stiffness from just a few seconds of stance data.
+    </p>
+  </div>
+</div>
+
+<div class="project-content">
+  <div class="container">
+
+    <div class="content-block">
+      <h2>Motivation</h2>
+      <p>
+        Terrain-adaptive locomotion typically requires dedicated force/torque sensors or expensive
+        exteroceptive sensing. This project asks: can we infer terrain stiffness from proprioceptive
+        leg dynamics alone, using a data-driven approach?
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Approach</h2>
+      <ul>
+        <li>Approximated the leg dynamics as a <strong>switched dynamic system</strong> — one linear system for swing phase, another for stance — using the Koopman operator framework.</li>
+        <li>Simulated different terrain stiffness behaviors (rigid, soft, variable) and collected leg state data across each terrain type.</li>
+        <li>Computed approximate <strong>Koopman generators</strong> for each terrain condition from the collected data using EDMD (Extended Dynamic Mode Decomposition).</li>
+        <li>Performed <strong>eigen analysis</strong> of the stance-phase Koopman generators — eigenvalue structure encodes terrain stiffness and can discriminate terrain type.</li>
+        <li>Demonstrated accurate terrain stiffness prediction using just a few seconds of stance data, with no external force sensors.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Results &amp; Media</h2>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: eigenvalue spectrum plot ]</div>
+          <p class="media-caption">// Koopman eigenvalue structure by terrain</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: terrain classification result ]</div>
+          <p class="media-caption">// Stiffness prediction accuracy</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: simulation trajectory ]</div>
+          <p class="media-caption">// Simulated terrain behaviors</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Gowrynanda PS · <a href="../../#research">← All Projects</a></p>
+</footer>
+</body>
+</html>
