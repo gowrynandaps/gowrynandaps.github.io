@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motion Planning Algorithms — Gowrynanda PS</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../" class="nav-logo">GPS://research</a>
+    <ul class="nav-links">
+      <li><a href="../../#about">About</a></li>
+      <li><a href="../../#research">Research</a></li>
+      <li><a href="../../#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="project-hero">
+  <div class="container">
+    <a href="../../#research" class="back-link">← Back to Research</a>
+    <div class="project-meta">
+      <span class="meta-item">Type: <span>Course Project</span></span>
+      <span class="meta-item">Period: <span>Jan 2025 – May 2025</span></span>
+      <span class="meta-item">Course: <span>Motion Planning — Prof. Nirav Patel, IIT Madras</span></span>
+    </div>
+    <h1 class="project-detail-title">Critical Comparison of Motion Planning Algorithms for a Mobile Manipulator with a 5-DOF Arm</h1>
+    <p class="project-detail-intro">
+      Benchmarked A*, PRM, RRT, and RRT* on a KUKA YouBot (5-DOF arm + mobile base) in CoppeliaSim,
+      with gradient-descent path smoothing applied to RRT output for real-world deployability.
+    </p>
+  </div>
+</div>
+
+<div class="project-content">
+  <div class="container">
+
+    <div class="content-block">
+      <h2>Setup</h2>
+      <p>
+        The KUKA YouBot combines a differential-drive mobile base with a 5-DOF manipulator arm,
+        requiring planning in both the base's 2D workspace and the arm's high-dimensional joint space.
+        The simulation environment was built in CoppeliaSim with obstacle-cluttered scenarios.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Algorithms Compared</h2>
+      <ul>
+        <li><strong>Mobile Base:</strong> A* (grid-based, optimal) vs PRM (probabilistic roadmap, sampling-based).</li>
+        <li><strong>Arm (5-DOF joint space):</strong> RRT vs RRT* — comparing path quality, planning time, and smoothness.</li>
+        <li><strong>Path Smoothing:</strong> Gradient descent post-processing applied to RRT-generated arm paths to eliminate excessive joint-space jitter and improve real-world deployability.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Key Findings</h2>
+      <ul>
+        <li>Decoupled planning (base and arm planned separately) outperformed joint planning in computation time, since A* solves the 2D base plan very quickly.</li>
+        <li>RRT* produced smoother arm paths than RRT at the cost of planning time; gradient-descent smoothing largely closed this gap for RRT.</li>
+        <li>Gradient-descent smoothing was essential for making RRT paths practically deployable on real hardware without excessive jerk.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Results &amp; Media</h2>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: CoppeliaSim simulation screenshot ]</div>
+          <p class="media-caption">// KUKA YouBot in CoppeliaSim</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: A* vs PRM path comparison ]</div>
+          <p class="media-caption">// Base path: A* vs PRM</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: RRT smoothing comparison ]</div>
+          <p class="media-caption">// Arm path before/after gradient smoothing</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Demo Video</h2>
+      <div class="media-item" style="max-width:700px;">
+        <div class="media-placeholder" style="height:300px;">[ Add CoppeliaSim demo video ]</div>
+        <p class="media-caption">// Full planning demo in simulation</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Gowrynanda PS · <a href="../../#research">← All Projects</a></p>
+</footer>
+</body>
+</html>
