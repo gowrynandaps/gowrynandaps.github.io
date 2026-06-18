@@ -221,12 +221,12 @@
       <h2 class="section-title">Projects &amp; Research</h2>
       <div class="section-divider"></div>
     </div>
-    <div class="projects-grid">
+
+    <!-- Research Projects -->
+    <p class="section-label" style="margin-bottom: 1.2rem;">Research &amp; Thesis</p>
+    <div class="projects-grid" style="margin-bottom: 3.5rem;">
 
       <a href="projects/quadruped-leg/" class="project-card">
-        <!--
-          Add project image: <img src="assets/images/quadruped-thumb.jpg" alt="Quadruped Leg" class="project-img" />
-        -->
         <img src="assets/images/quadruped-thumb.png" alt="Quadruped Leg" class="project-img" />
         <div class="project-body">
           <p class="project-tag">Thesis · May 2025 – Present</p>
@@ -247,21 +247,8 @@
           <h3 class="project-title">Low-Inertia Cable-Driven Underwater Manipulator</h3>
           <p class="project-desc">
             Collaborated with Oceaneering to design a cable-driven underwater
-            manipulator with optimised pulley routing. Implemented gravity-compensated PID which 
+            manipulator with optimised pulley routing. Implemented gravity-compensated PID which
             was validated in dynamic simulation.
-          </p>
-          <span class="project-arrow">View project →</span>
-        </div>
-      </a>
-
-      <a href="projects/cbf-navigation/" class="project-card">
-        <div class="project-img-placeholder">[ cbf-navigation.jpg ]</div>
-        <div class="project-body">
-          <p class="project-tag">Course Project · Jan 2026 – May 2026</p>
-          <h3 class="project-title">Lyapunov-Based CBF for Safe 3D Navigation</h3>
-          <p class="project-desc">
-            Developed a spatially-shifted Control Barrier Function framework using a single CLF and
-            translational symmetry. Real-time CBF-QP optimisation at 30 ms on a 10-state quadrotor model.
           </p>
           <span class="project-arrow">View project →</span>
         </div>
@@ -294,66 +281,94 @@
         </div>
       </a>
 
+      <a href="projects/solinas-shaft/" class="project-card">
+        <div class="project-img-placeholder">[ solinas-shaft.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Inter IIT Tech Meet · Competition</p>
+          <h3 class="project-title">Pulley-Driven Extendable Shaft for Sewage Cleaning Robot</h3>
+          <p class="project-desc">
+            Designed a pulley-driven extendable shaft capable of transmitting rotary forces at
+            variable depths — built for Solinas as a robotic end-effector to eliminate manual
+            scavenging in sewage holes.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Course Projects -->
+    <p class="section-label" style="margin-bottom: 1.2rem;">Course Projects</p>
+    <div class="projects-grid">
+
+      <a href="projects/cbf-navigation/" class="project-card">
+        <div class="project-img-placeholder">[ cbf-navigation.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Course Project · Jan 2026 – May 2026</p>
+          <h3 class="project-title">Lyapunov-Based CBF for Safe 3D Navigation</h3>
+          <p class="project-desc">
+            Developed a spatially-shifted Control Barrier Function framework using a single CLF and
+            translational symmetry. Real-time CBF-QP optimisation at 30 ms on a 10-state quadrotor model.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/koopman-terrain/" class="project-card">
+        <div class="project-img-placeholder">[ koopman-terrain.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Course Project · Jul 2025 – Nov 2025</p>
+          <h3 class="project-title">Data-Driven Terrain Detection for Quadruped Locomotion</h3>
+          <p class="project-desc">
+            Approximated quadruped leg dynamics as a switched dynamic system using Koopman operators.
+            Eigen analysis of stance-phase generators predicts terrain stiffness from just a few seconds of data.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/fem-manipulator/" class="project-card">
+        <div class="project-img-placeholder">[ fem-manipulator.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Course Project · Jul 2024 – Nov 2024</p>
+          <h3 class="project-title">Dynamic Characterization of an Underwater Flexible Single-Link Manipulator</h3>
+          <p class="project-desc">
+            Modelled a soft underwater robot as a rotating deflecting beam using FEM. Determined resonance
+            frequency via frequency-marching simulation.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/multiagent-optimal/" class="project-card">
+        <div class="project-img-placeholder">[ multiagent-optimal.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Course Project · Jan 2025 – May 2025</p>
+          <h3 class="project-title">Multi-Agent Planning Under Limited Communication via Game Theory</h3>
+          <p class="project-desc">
+            Formulated multi-agent planning as a differential game with Nash equilibrium. Used
+            Hamilton-Jacobi-Bellman equations on a directed graph; validated in MATLAB.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/motion-planning/" class="project-card">
+        <div class="project-img-placeholder">[ motion-planning.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Course Project · Jan 2025 – May 2025</p>
+          <h3 class="project-title">Critical Comparison of Motion Planning Algorithms for a Mobile Manipulator</h3>
+          <p class="project-desc">
+            Benchmarked A*, PRM, RRT, and RRT* on a KUKA YouBot (5-DOF arm + mobile base) in CoppeliaSim.
+            Gradient-descent path smoothing applied to RRT output for real-world deployability.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
-<!-- ── Course Projects Section Header (add before the cards below) ── -->
-<div style="grid-column: 1 / -1; margin-top: 2rem;">
-  <p class="section-label" style="margin-bottom: 0.3rem;">Course Projects</p>
-  <div class="section-divider"></div>
-</div>
-
-<a href="projects/koopman-terrain/" class="project-card">
-  <div class="project-img-placeholder">[ koopman-terrain.jpg ]</div>
-  <div class="project-body">
-    <p class="project-tag">Course Project · Jul 2025 – Nov 2025</p>
-    <h3 class="project-title">Data-Driven Terrain Detection for Quadruped Locomotion</h3>
-    <p class="project-desc">
-      Approximated quadruped leg dynamics as a switched dynamic system using Koopman operators.
-      Eigen analysis of stance-phase generators predicts terrain stiffness from just a few seconds of data.
-    </p>
-    <span class="project-arrow">View project →</span>
-  </div>
-</a>
-
-<a href="projects/fem-manipulator/" class="project-card">
-  <div class="project-img-placeholder">[ fem-manipulator.jpg ]</div>
-  <div class="project-body">
-    <p class="project-tag">Course Project · Jul 2024 – Nov 2024</p>
-    <h3 class="project-title">Dynamic Characterization of an Underwater Flexible Single-Link Manipulator</h3>
-    <p class="project-desc">
-      Modelled a soft underwater robot as a rotating deflecting beam using FEM. Determined resonance
-      frequency via frequency-marching simulation.
-    </p>
-    <span class="project-arrow">View project →</span>
-  </div>
-</a>
-
-<a href="projects/multiagent-optimal/" class="project-card">
-  <div class="project-img-placeholder">[ multiagent-optimal.jpg ]</div>
-  <div class="project-body">
-    <p class="project-tag">Course Project · Jan 2025 – May 2025</p>
-    <h3 class="project-title">Multi-Agent Planning Under Limited Communication via Game Theory</h3>
-    <p class="project-desc">
-      Formulated multi-agent planning as a differential game with Nash equilibrium. Used
-      Hamilton-Jacobi-Bellman equations on a directed graph communication topology; validated in MATLAB.
-    </p>
-    <span class="project-arrow">View project →</span>
-  </div>
-</a>
-
-<a href="projects/motion-planning/" class="project-card">
-  <div class="project-img-placeholder">[ motion-planning.jpg ]</div>
-  <div class="project-body">
-    <p class="project-tag">Course Project · Jan 2025 – May 2025</p>
-    <h3 class="project-title">Critical Comparison of Motion Planning Algorithms for a Mobile Manipulator</h3>
-    <p class="project-desc">
-      Benchmarked A*, PRM, RRT, and RRT* on a KUKA YouBot (5-DOF arm + mobile base) in CoppeliaSim.
-      Gradient-descent path smoothing applied to RRT output for real-world deployability.
-    </p>
-    <span class="project-arrow">View project →</span>
-  </div>
-</a>
 <!-- ── Achievements ── -->
 <section id="achievements">
   <div class="container">
