@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEM Underwater Manipulator — Gowrynanda PS</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../" class="nav-logo">GPS://research</a>
+    <ul class="nav-links">
+      <li><a href="../../#about">About</a></li>
+      <li><a href="../../#research">Research</a></li>
+      <li><a href="../../#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="project-hero">
+  <div class="container">
+    <a href="../../#research" class="back-link">← Back to Research</a>
+    <div class="project-meta">
+      <span class="meta-item">Type: <span>Course Project</span></span>
+      <span class="meta-item">Period: <span>Jul 2024 – Nov 2024</span></span>
+      <span class="meta-item">Course: <span>Finite Element Analysis — Prof. Sunderajan Natarajan</span></span>
+    </div>
+    <h1 class="project-detail-title">Dynamic Characterization of an Underwater Flexible Single-Link Manipulator</h1>
+    <p class="project-detail-intro">
+      Developed a finite element model of a flexible underwater manipulator as a rotating beam
+      with deflection, and determined its resonance frequency using frequency-marching simulation.
+    </p>
+  </div>
+</div>
+
+<div class="project-content">
+  <div class="container">
+
+    <div class="content-block">
+      <h2>Problem Statement</h2>
+      <p>
+        Flexible underwater manipulators exhibit complex dynamic behaviour — hydrodynamic drag,
+        structural compliance, and coupling between rigid-body rotation and elastic deflection.
+        Understanding resonance is critical to avoiding structural failure and control instability.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Modelling Approach</h2>
+      <ul>
+        <li>Modelled the manipulator link as a <strong>rotating Euler-Bernoulli beam</strong> with tip deflection, capturing the coupling between rigid-body motion and elastic deformation.</li>
+        <li>Discretised the beam using the <strong>Finite Element Method</strong>, assembling consistent mass and stiffness matrices including centrifugal stiffening effects.</li>
+        <li>Applied appropriate boundary conditions for the clamped-free rotating configuration.</li>
+        <li>Performed <strong>frequency-marching simulation</strong> to trace natural frequencies as a function of spin rate, identifying resonance crossings.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Results &amp; Media</h2>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: FEM mesh / beam model diagram ]</div>
+          <p class="media-caption">// FEM beam discretisation</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: frequency vs spin rate plot ]</div>
+          <p class="media-caption">// Resonance frequency identification</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: mode shape plot ]</div>
+          <p class="media-caption">// First bending mode shape</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Gowrynanda PS · <a href="../../#research">← All Projects</a></p>
+</footer>
+</body>
+</html>
