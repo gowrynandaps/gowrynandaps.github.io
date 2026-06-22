@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../../assets/css/style.css" />
 </head>
 <body>
-
+ 
 <nav>
   <div class="nav-inner">
     <a href="../../" class="nav-logo">GPS://research</a>
@@ -19,7 +19,7 @@
     </ul>
   </div>
 </nav>
-
+ 
 <div class="project-hero">
   <div class="container">
     <a href="../../#research" class="back-link">← Back to Research</a>
@@ -31,52 +31,86 @@
     </div>
     <h1 class="project-detail-title">Trajectory Planning &amp; Control of a Low-Cost Quadruped Leg Design</h1>
     <p class="project-detail-intro">
-      A full-stack robotics project: designing a novel two-link quadruped leg with a Rotary Series
-      Elastic Actuator (RSEA), building a simulation testbed in CoppeliaSim, and validating
-      joint-space PD control on physical hardware driven by an ESP32 and ODrive motor controller.
+      Designed a quadruped leg with a parallelogram-based actuation linkage integrated with a patented
+      Rotary Series Elastic Actuator (RSEA) — built, simulated, and validated end-to-end from CoppeliaSim
+      to physical hardware, proving the base system is robust enough for future development into a full
+      quadruped platform.
     </p>
   </div>
 </div>
-
+ 
 <div class="project-content">
   <div class="container">
-
+ 
     <div class="content-block">
-      <h2>Overview</h2>
+      <h2>Motivation</h2>
       <p>
-        Legged robots need actuators that can absorb impacts, measure ground forces, and generate
-        compliant motion — especially at low cost. This project introduces a Rotary Series Elastic
-        Actuator (RSEA) integrated into a two-link quadruped leg (L1 = 0.15 m, L2 = 0.225 m)
-        to achieve greater impact tolerance and torque output than traditional rigid drives.
+        Quadrupedal locomotion offers a reliable way to traverse uncertain environments. Unlike wheeled
+        robots, quadrupeds don't require continuous ground contact, and unlike aerial drones, they're
+        unaffected by destabilising ground effects — making them well suited to safety-critical and
+        first-response applications where adaptability is crucial.
       </p>
       <p>
-        The work spans the full development pipeline: mechanical design in Fusion 360, dynamics
-        modelling, CoppeliaSim simulation with torque-level actuation, and hardware bring-up
-        with encoder-based feedback control.
+        Despite these advantages, quadruped technology remains far from widespread adoption. Three
+        primary barriers stand in the way: high system cost, limited energy efficiency (which reduces
+        runtime and accessibility), and a lack of fail-safety. Existing designs also still fall short
+        of replicating the natural agility of animals — and a major bottleneck lies in actuator design,
+        since actuators directly determine torque output, compliance, and overall agility.
       </p>
     </div>
-
+ 
+    <div class="content-block">
+      <h2>Why a Series Elastic Actuator</h2>
+      <p>
+        Conventional electric motors require gear reductions to achieve sufficient torque, but
+        gearboxes introduce friction, backlash, torque ripple, and wear. High reduction ratios also
+        cause an N² increase in reflected inertia, so shock loads translate into much higher forces on
+        the gear teeth — in lightweight actuators, it's often the gearing's load rating, not the motor,
+        that limits peak torque, and shock-induced gear failures are not uncommon.
+      </p>
+      <p>
+        Quasi-direct drive (QDD) actuators partially address this by combining low-ratio gearboxes with
+        high-torque motors, but their reliance on expensive components significantly raises system cost.
+        Without a passive compliance element, QDDs also require compliance to be actively encoded into
+        the controller itself.
+      </p>
+      <p>
+        Series Elastic Actuators (SEAs) mitigate these problems by introducing an elastic element
+        between the gearbox and the load, improving shock tolerance and energy efficiency. Since
+        quadrupeds demand rotary joint motion, this project focuses on a <strong>Rotary SEA (RSEA)</strong>.
+      </p>
+    </div>
+ 
     <div class="content-block">
       <h2>System Architecture</h2>
       <ul>
-        <li><strong>Mechanical Design:</strong> Two-link leg (L1 = 0.15 m, L2 = 0.225 m) with RSEA at each joint; spring compression measured as torque proxy.</li>
+        <li><strong>Mechanical Design:</strong> Two-link leg (L1 = 0.15 m, L2 = 0.225 m) with a parallelogram-based actuation linkage and an RSEA at the joint; spring compression measured as a torque proxy.</li>
         <li><strong>Sensing:</strong> 2400 CPR quadrature encoders for joint angle feedback; HX711 + YZC-516C load cell for ground reaction force measurement.</li>
-        <li><strong>Electronics:</strong> ODrive motor controller in velocity mode, commanded over UART from ESP32 microcontroller.</li>
-        <li><strong>Control:</strong> Cascaded joint-space PD controller with velocity saturation, gain-scheduled across swing/stance phases.</li>
-        <li><strong>Simulation:</strong> Full CoppeliaSim testbed with Lua scripting and Python Remote API; multi-height gait trajectory validated in sim before hardware deployment.</li>
+        <li><strong>Electronics:</strong> ODrive motor controller in velocity mode, commanded over UART from an ESP32 microcontroller.</li>
+        <li><strong>Control:</strong> Cascaded joint-space PD controller with velocity saturation, gain-scheduled across swing and stance phases.</li>
+        <li><strong>Simulation:</strong> Full CoppeliaSim testbed with Lua scripting and the Python Remote API; multi-height gait trajectories validated in simulation before hardware deployment.</li>
       </ul>
     </div>
-
+ 
+    <div class="content-block">
+      <h2>Development Process</h2>
+      <p>
+        The project spans the full development pipeline: building a simulation testbed in CoppeliaSim,
+        designing the leg in SolidWorks for manufacturability and ease of assembly across several
+        design iterations, constructing the physical test bed, validating joint-space PD control on
+        hardware (ESP32 + ODrive), and performing trajectory control tests ranging from inverse
+        kinematics validation to full trajectory tracking.
+      </p>
+    </div>
+ 
     <div class="content-block">
       <h2>Key Results</h2>
       <p>
-        <!--  Fill in your actual results here once experiments are complete. Examples: -->
-        Achieved stable height-switching gait trajectories in simulation across [X] mm range.
-        Hardware tracking error converged to within [X]° with the tuned PD controller.
-        Terrain perception using the Koopman framework is currently being integrated for
-        sensor-less terrain stiffness detection.
+        Achieved stable height-switching gait trajectories across a 60 mm range, with hardware
+        tracking error converging to within 0.01 radians using the tuned PD controller — confirming
+        the base mechanism and control architecture is robust enough to extend into a full quadruped
+        platform equipped with RSEAs at every joint.
       </p>
-      <!-- MEDIA: Add your result images/plots below -->
       <div class="media-grid">
         <div class="media-item">
           <div class="media-placeholder">[ Add: leg prototype photo ]</div>
@@ -92,7 +126,7 @@
         </div>
       </div>
     </div>
-
+ 
     <div class="content-block">
       <h2>Demo Video</h2>
       <!--
@@ -100,7 +134,7 @@
         <div class="video-wrap">
           <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
         </div>
-
+ 
         OPTION B — Local video file:
         <video controls style="width:100%; border-radius:8px; border:1px solid var(--border);">
           <source src="../../assets/videos/quadruped-demo.mp4" type="video/mp4" />
@@ -111,7 +145,7 @@
         <p class="media-caption">// Hardware demonstration video</p>
       </div>
     </div>
-
+ 
     <div class="content-block">
       <h2>Ongoing Work</h2>
       <p>
@@ -121,13 +155,13 @@
         controller gains in real time.
       </p>
     </div>
-
+ 
   </div>
 </div>
-
+ 
 <footer>
   <p>© 2026 Gowrynanda PS · <a href="../../#research">← All Projects</a></p>
 </footer>
-
+ 
 </body>
 </html>
