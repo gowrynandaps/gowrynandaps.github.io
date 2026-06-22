@@ -26,14 +26,15 @@
     <div class="project-meta">
       <span class="meta-item">Type: <span>Industry-Collaborative Research</span></span>
       <span class="meta-item">Period: <span>Oct 2024 – Present</span></span>
-      <span class="meta-item">Partner: <span>Oceaneering, Houston, USA</span></span>
+      <span class="meta-item">Partner: <span>Oceaneering</span></span>
       <span class="meta-item">Guides: <span>Dr. Abilash Somayajula &amp; Dr. Bijo Sebastian</span></span>
     </div>
     <h1 class="project-detail-title">Low-Inertia Cable-Driven Underwater Manipulator</h1>
     <p class="project-detail-intro">
-      An industry-collaborative project with Oceaneering (Houston, USA) to design a cable-driven
-      underwater manipulator with optimised distal loading, validated through gravity-compensated
-      PID and optimal control in dynamic simulation.
+      An industry-collaborative project with Oceaneering to design a low-inertia underwater
+      manipulator. A complete 2-DOF cable-driven manipulator was designed in a modular manner
+      so the design can scale to additional degrees of freedom, with a controller validated in
+      simulation to account for dynamic underwater loads such as drag and added mass.
     </p>
   </div>
 </div>
@@ -44,20 +45,52 @@
     <div class="content-block">
       <h2>Motivation</h2>
       <p>
-        Underwater manipulators for inspection and intervention tasks face a fundamental tradeoff:
-        more capable arms are heavier at the distal end, making them harder to control under
-        hydrodynamic disturbances. Cable-driven mechanisms move actuators proximally, dramatically
-        reducing distal inertia and enabling faster, more precise motion underwater.
+        Underwater manipulators are critical for pipeline inspection and maintenance of offshore
+        and nuclear facilities. More than 30% of the total cost of energy for offshore wind power
+        comes from operation and maintenance expenses — costs that can be substantially reduced by
+        deploying underwater robots with manipulators instead of human divers. Beyond cost, there's
+        also a human safety dimension: divers are routinely put at risk in harsh underwater
+        conditions that robotic solutions could avoid entirely.
+      </p>
+      <p>
+        Most underwater manipulators currently in operation with high torque capacity are
+        hydraulic. Hydraulic systems bring a host of problems: reliability issues from seal
+        failures, bulky form factors that require dedicated hydraulic equipment, and latency or
+        jerkiness that prevents their adoption in high-speed, precise manipulation tasks.
+      </p>
+      <p>
+        Manipulators using conventional electric motors have lower inertia and therefore lower
+        energy requirements, can integrate advanced control schemes, and are generally more
+        cost-effective. However, electric actuation introduces its own challenges — waterproofing
+        difficulty and distal loading, since motors are typically placed directly at the joints.
+      </p>
+      <p>
+        This project's proposed solution tackles both problems simultaneously: a
+        <strong>low-inertia design</strong> with weight concentrated at the base, and
+        <strong>reduced waterproofing requirements</strong> achieved through a cable-driven
+        transmission mechanism. More capable arms are typically heavier at the distal end, making
+        them harder to control under hydrodynamic disturbance — by moving actuators proximally,
+        cable-driven mechanisms dramatically reduce distal inertia and enable faster, more precise
+        motion underwater.
       </p>
     </div>
 
     <div class="content-block">
       <h2>Design &amp; Approach</h2>
+      <p>
+        The key features of the designed manipulator are planar joints and a modular structure —
+        the design can easily extend to more links since cable routing is separated using dedicated
+        cable-carrying tubes. Cable routing is arranged so that joints remain planar, which also
+        simplifies waterproofing at each joint. The initial prototype is designed for a payload of
+        1.5 kg, with a factor of safety of 3 at joint 1 and 2.5 at joint 2 to handle high dynamic
+        loading environments.
+      </p>
       <ul>
         <li>Designed the cable routing geometry to minimise distal loading through optimised pulley placement.</li>
+        <li>Built a modular 2-DOF architecture with planar joints, allowing future extension to additional degrees of freedom without redesigning the cable routing.</li>
+        <li>Sized the initial prototype for a 1.5 kg payload, with safety factors of 3 (joint 1) and 2.5 (joint 2) under high dynamic loads.</li>
         <li>Developed gravity-compensated PID control for stable positioning under buoyancy and drag.</li>
-        <li>Implemented Optimal Control strategies using Hamilton-Jacobi-Bellman-inspired methods to maximise tracking accuracy.</li>
-        <li>Validated all control architectures through dynamic simulation under realistic underwater disturbance models.</li>
+        <li>Validated all control architectures through dynamic simulation under realistic underwater disturbance models, including drag and added mass effects.</li>
       </ul>
     </div>
 
@@ -67,11 +100,11 @@
       <div class="media-grid">
         <div class="media-item">
           <div class="media-placeholder">[ Add: CAD / design render ]</div>
-          <p class="media-caption">// Manipulator CAD design</p>
+          <p class="media-caption">Manipulator CAD design</p>
         </div>
         <div class="media-item">
           <div class="media-placeholder">[ Add: simulation result plot ]</div>
-          <p class="media-caption">// Control performance under disturbances</p>
+          <p class="media-caption">Control performance under disturbances</p>
         </div>
       </div>
     </div>
@@ -80,7 +113,7 @@
       <h2>Demo / Simulation Video</h2>
       <div class="media-item" style="max-width:700px;">
         <div class="media-placeholder" style="height:300px;">[ Add simulation video ]</div>
-        <p class="media-caption">// Dynamic simulation demo</p>
+        <p class="media-caption">Dynamic simulation demo</p>
       </div>
     </div>
 
