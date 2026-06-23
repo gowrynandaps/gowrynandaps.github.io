@@ -17,7 +17,6 @@
     </ul>
   </div>
 </nav>
-
 <div class="project-hero">
   <div class="container">
     <a href="../../#research" class="back-link">← Back to Research</a>
@@ -28,31 +27,63 @@
     </div>
     <h1 class="project-detail-title">Dynamic Characterization of an Underwater Flexible Single-Link Manipulator</h1>
     <p class="project-detail-intro">
-      Developed a finite element model of a flexible underwater manipulator as a rotating beam
-      with deflection, and determined its resonance frequency using frequency-marching simulation.
+      Modelled a flexible underwater manipulator as a rotating Euler-Bernoulli beam, derived its
+      governing finite element equations from first principles, and validated resonance predictions
+      against a published study — uncovering and correcting errors in the reference paper along the way.
     </p>
   </div>
 </div>
-
 <div class="project-content">
   <div class="container">
 
     <div class="content-block">
       <h2>Problem Statement</h2>
       <p>
-        Flexible underwater manipulators exhibit complex dynamic behaviour — hydrodynamic drag,
-        structural compliance, and coupling between rigid-body rotation and elastic deflection.
-        Understanding resonance is critical to avoiding structural failure and control instability.
+        Flexible underwater manipulators exhibit complex dynamic behaviour: hydrodynamic added
+        mass, structural compliance, and coupling between rigid-body rotation and elastic
+        deflection. Operating such a manipulator near one of its natural frequencies risks
+        resonance — and potentially structural failure — so characterising these frequencies
+        accurately, including the effect of the surrounding fluid, is essential before deployment.
       </p>
     </div>
 
     <div class="content-block">
       <h2>Modelling Approach</h2>
       <ul>
-        <li>Modelled the manipulator link as a <strong>rotating Euler-Bernoulli beam</strong> with tip deflection, capturing the coupling between rigid-body motion and elastic deformation.</li>
-        <li>Discretised the beam using the <strong>Finite Element Method</strong>, assembling consistent mass and stiffness matrices including centrifugal stiffening effects.</li>
-        <li>Applied appropriate boundary conditions for the clamped-free rotating configuration.</li>
-        <li>Performed <strong>frequency-marching simulation</strong> to trace natural frequencies as a function of spin rate, identifying resonance crossings.</li>
+        <li>Modelled the manipulator as a <strong>rotating Euler-Bernoulli beam</strong>, where total deflection combines a rigid-body rotation term and an elastic deflection term described by Hermitian shape functions.</li>
+        <li>Discretised the beam into linear finite elements (2 DOF per node: transverse deflection and rotation), and derived the elemental mass and stiffness matrices in closed form from kinetic and potential energy expressions via the Lagrangian.</li>
+        <li>Incorporated <strong>hydrodynamic added mass</strong> directly into the element mass matrix to capture the effect of the surrounding fluid on the system's dynamics — critical for any underwater structure, where added mass can rival or exceed the structural mass itself.</li>
+        <li>Included the <strong>tip payload mass</strong> as a separate inertia contribution, to study how an end-effector load shifts the system's resonant behaviour.</li>
+        <li>Converted the assembled system into an eigenvalue problem in the frequency domain, then solved it using a <strong>frequency-marching</strong> procedure — sweeping frequency and tracking deflection peaks to locate resonances, since the boundary conditions made a direct eigenvalue solve impractical.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Validation Against Published Literature</h2>
+      <p>
+        Rather than developing the model in isolation, the implementation was directly validated
+        against a published case study (Vibroengineering Journal) using matching physical
+        parameters — a 900 mm PVC manipulator link with a 30 mm outer / 28 mm inner diameter.
+        In the process of validation, two inconsistencies were identified in the reference paper:
+        the reported material density appeared to be a typo (corrected using independently sourced
+        PVC density data), and the reported second moment of inertia was recalculated directly from
+        the beam's cross-sectional geometry rather than taken at face value.
+      </p>
+      <p>
+        With these corrections, the model's predicted resonance frequencies showed good agreement
+        with the paper's reported values, and a mesh convergence study confirmed the solution
+        stabilises beyond six elements — standard practice for establishing that a finite element
+        result is mesh-independent rather than an artifact of discretisation.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Key Results</h2>
+      <ul>
+        <li>Mesh convergence achieved beyond <strong>6 elements</strong>, with the first three resonant modes stabilising at approximately 18.88 Hz, 61.0 Hz, and 127.3 Hz (including hydrodynamic added mass).</li>
+        <li>Adding a 0.5 kg tip payload shifted natural frequencies downward, consistent with the added inertia at the end-effector — highlighting why payload mass must be accounted for at the design stage.</li>
+        <li>Cross-referencing wave excitation frequencies (~1 Hz in shallow water) against the computed modal frequencies confirmed the design operates safely away from resonance in shallow-water conditions, with or without payload.</li>
+        <li>Since structural and fluid damping were not modelled, the frequency-marching deflection amplitudes are conservative — true resonant amplitudes in practice would be lower due to damping.</li>
       </ul>
     </div>
 
@@ -61,22 +92,34 @@
       <div class="media-grid">
         <div class="media-item">
           <div class="media-placeholder">[ Add: FEM mesh / beam model diagram ]</div>
-          <p class="media-caption">// FEM beam discretisation</p>
+          <p class="media-caption">Rotating beam discretisation and coordinate setup</p>
         </div>
         <div class="media-item">
-          <div class="media-placeholder">[ Add: frequency vs spin rate plot ]</div>
-          <p class="media-caption">// Resonance frequency identification</p>
+          <div class="media-placeholder">[ Add: frequency vs. number of elements convergence plot ]</div>
+          <p class="media-caption">Mesh convergence of resonant modes</p>
         </div>
         <div class="media-item">
-          <div class="media-placeholder">[ Add: mode shape plot ]</div>
-          <p class="media-caption">// First bending mode shape</p>
+          <div class="media-placeholder">[ Add: frequency marching plot ]</div>
+          <p class="media-caption">Frequency-marching resonance identification</p>
         </div>
       </div>
     </div>
 
+    <div class="content-block">
+      <h2>Takeaways</h2>
+      <p>
+        Beyond the specific result, this project was a useful exercise in working through a modelling
+        problem that the available literature didn't fully explain — particularly how to correctly
+        assemble elemental mass and stiffness matrices for a rotating flexible beam with coupled
+        rigid-elastic motion. Cross-checking the implementation against a published paper, finding
+        and correcting errors in that paper, and confirming agreement after correction was the most
+        valuable part of the process. Future extensions would include temporal (time-domain)
+        analysis with Rayleigh damping, and generalising the model to multi-link manipulators.
+      </p>
+    </div>
+
   </div>
 </div>
-
 <footer>
   <p>© 2026 Gowrynanda PS · <a href="../../#research">← All Projects</a></p>
 </footer>
