@@ -24,50 +24,109 @@
       <span class="meta-item">Type: <span>Patent Project</span></span>
       <span class="meta-item">Patent: <span>No. 549953</span></span>
       <span class="meta-item">Period: <span>May 2022 – Apr 2023</span></span>
-      <span class="meta-item">Guide: <span>Dr. Manish Anand, IIT Madras CFI</span></span>
+      <span class="meta-item">Guide: <span>Dr. Manish Anand, Center for Innovation, IIT Madras</span></span>
     </div>
     <h1 class="project-detail-title">Autonomous Afforestation Drone with Robotic Manipulator</h1>
     <p class="project-detail-intro">
       A hexacopter-mounted robotic arm for autonomous soil analysis and precision seed sowing,
-      featuring a novel suspension system for soil interaction stability. Patent No. 549953.
+      featuring a novel suspension system for in-flight stability. Built as project GAIA;
+      resulted in Patent No. 549953 and was presented to India's Minister of Commerce &amp;
+      Industry at the G20 Summit.
     </p>
   </div>
 </div>
 <div class="project-content">
   <div class="container">
+
+    <div class="content-block">
+      <h2>Motivation</h2>
+      <p>
+        Reforestation efforts around the world show what's possible when barren land is given a
+        chance: a hamlet in West Bengal's Bankura district revived a hillside by planting over
+        14,000 sonajhuri trees; a hillock in Jharbagda village went from a single tree in 1997 to
+        a dense forest home to wildlife by 2020; residents of Madhya Pradesh turned barren land
+        into a 1,030-acre forest over 20 years. There are thousands of similar barren landscapes
+        worldwide with soil that has real potential to support new growth — growth that benefits
+        groundwater recharge, soil erosion prevention, regional climate, and biodiversity.
+      </p>
+      <p>
+        The challenge is that successful afforestation requires matching the right tree species to
+        local climatic conditions and soil parameters — a process that's typically slow, manual,
+        and inconsistent at scale. Project <strong>GAIA</strong> set out to make this analysis and
+        planting process automated, without losing the precision a human expert would apply.
+      </p>
+    </div>
+
     <div class="content-block">
       <h2>System Design</h2>
+      <p>
+        The GAIA drone analyzes soil at each site using three onboard sensors — a moisture sensor,
+        a pH sensor, and an NPK (nutrient) sensor — then makes a data-driven decision about which
+        seed is most likely to thrive there.
+      </p>
+      <p><strong>How it works:</strong></p>
       <ul>
-        <li>Designed and fabricated a lightweight robotic arm in Fusion 360 for soil analysis and seed sowing.</li>
-        <li>Integrated the arm with a hexacopter using ArduPilot for autonomous flight and target-site positioning.</li>
-        <li>Developed a novel suspension system to maintain stability during soil interaction.</li>
-        <li>Built a controlled testbed to validate sowing accuracy under variable terrain and moisture conditions.</li>
+        <li>A flight path across the target area is planned using ArduPilot waypoint navigation.</li>
+        <li>At each waypoint, a signal is sent to the Arduino microcontroller driving the robotic arm.</li>
+        <li>The arm extends into the soil using a rack-and-pinion mechanism, inserting sensors that measure soil composition and hardness.</li>
+        <li>A machine learning model takes in the soil sensor and hardness data, predicts nutrient composition, and determines which seed (from a 4-seed onboard sorter, extensible to more) has the highest survival probability at that location.</li>
+        <li>The seed sower claw performs scooping, seed placement, and soil covering in a single rotating motion — depositing only the seed selected by the prediction algorithm.</li>
+        <li>The rack-and-pinion arm retracts and the drone flies to the next waypoint.</li>
       </ul>
+      <p>
+        A key engineering challenge was keeping the arm and seed-sorter assembly firmly locked to
+        the drone body during flight, while still allowing controlled movement during the sowing
+        action itself — without destabilising the aircraft. This was solved with a novel suspension
+        system that stays locked via electromagnets during flight, and activates only during the
+        sowing maneuver.
+      </p>
     </div>
+
+    <div class="content-block">
+      <h2>Recognition &amp; Impact</h2>
+      <p>
+        The project was presented to <strong>Shri Piyush Goyal, Union Minister of Commerce &amp;
+        Industry</strong>, and represented IIT Madras at the <strong>G20 Summit</strong> —
+        recognition of its potential contribution toward large-scale, data-driven afforestation.
+      </p>
+      <div class="media-grid">
+        <div class="media-item">
+          <img src="../../assets/images/gaia-minister-1.jpg" alt="Presenting GAIA to Piyush Goyal" loading="lazy" />
+          <p class="media-caption">Presenting GAIA to Shri Piyush Goyal, Union Minister of Commerce &amp; Industry</p>
+        </div>
+        <div class="media-item">
+          <img src="../../assets/images/gaia-g20.jpg" alt="GAIA at the G20 Summit" loading="lazy" />
+          <p class="media-caption">Representing IIT Madras at the G20 Summit</p>
+        </div>
+      </div>
+    </div>
+
     <div class="content-block">
       <h2>Media</h2>
       <div class="media-grid">
         <div class="media-item">
           <div class="media-placeholder">[ Add: drone prototype photo ]</div>
-          <p class="media-caption">// Hexacopter with robotic arm</p>
+          <p class="media-caption">Hexacopter with robotic arm</p>
         </div>
         <div class="media-item">
           <div class="media-placeholder">[ Add: arm mechanism close-up ]</div>
-          <p class="media-caption">// Soil interaction mechanism</p>
+          <p class="media-caption">Soil interaction mechanism</p>
         </div>
         <div class="media-item">
           <div class="media-placeholder">[ Add: field test photo ]</div>
-          <p class="media-caption">// Testbed validation</p>
+          <p class="media-caption">Testbed validation</p>
         </div>
       </div>
     </div>
+
     <div class="content-block">
       <h2>Demo Video</h2>
       <div class="media-item" style="max-width:700px;">
         <div class="media-placeholder" style="height:300px;">[ Add demo video ]</div>
-        <p class="media-caption">// Flight and sowing demonstration</p>
+        <p class="media-caption">Flight and sowing demonstration</p>
       </div>
     </div>
+
   </div>
 </div>
 <footer>
