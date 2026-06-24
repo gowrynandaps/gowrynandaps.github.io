@@ -21,41 +21,149 @@
   <div class="container">
     <a href="../../#research" class="back-link">← Back to Research</a>
     <div class="project-meta">
-      <span class="meta-item">Type: <span>Course Project</span></span>
-      <span class="meta-item">Period: <span>Jan 2026 – Present</span></span>
-      <span class="meta-item">Course: <span>Non-Linear Systems Analysis</span></span>
+      <span class="meta-item">Type: <span>Paper Presentation &amp; Critique</span></span>
+      <span class="meta-item">Period: <span>Jan 2026 – May 2026</span></span>
+      <span class="meta-item">Course: <span>Non-Linear Systems Analysis — Prof. Puduru Viswanadha Reddy</span></span>
     </div>
-    <h1 class="project-detail-title">Lyapunov-Based Control Barrier Functions for Safe 3D Navigation</h1>
+    <h1 class="project-detail-title">Lyapunov-Based Control Barrier Functions for Real-Time Safe Navigation in 3D Complex Environments</h1>
     <p class="project-detail-intro">
-      A spatially-shifted CBF framework using a single Control Lyapunov Function and translational
-      symmetry to synthesise multiple barrier functions online — validated on a 10-state quadrotor.
+      Presented Zhang &amp; Hou's (IEEE RA-L, 2026) method for synthesising Control Barrier
+      Functions on the fly from a single Control Lyapunov Function via translational symmetry,
+      reproduced their planar two-rotor simulation, and critically evaluated the framework's
+      practical limitations.
     </p>
   </div>
 </div>
 <div class="project-content">
   <div class="container">
+
     <div class="content-block">
-      <h2>Key Contributions</h2>
+      <h2>Motivation</h2>
+      <p>
+        Autonomous drones are increasingly used for package delivery, warehouse operations,
+        defence, and inspection — all settings where safe navigation isn't optional. Collisions
+        risk human safety, damage expensive equipment, and undermine reliable deployment in the
+        real world. The central question this paper addresses is how to guarantee safety in real
+        time, in complex 3D environments, without the prohibitive offline computation that
+        classical safety-certification approaches require.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Literature Context</h2>
+      <p>Existing approaches to safe navigation each carry a distinct tradeoff:</p>
       <ul>
-        <li>Developed a spatially shifted CBF framework using a single CLF and translational symmetry to generate multiple barrier functions without offline computation.</li>
-        <li>Implemented an autonomous switching mechanism selecting the active CBF online based on obstacle proximity.</li>
-        <li>Real-time CBF-QP optimisation solving in under 30 ms on a 10-state quadrotor model.</li>
-        <li>Validated safety (no collision) and goal convergence in complex 3D simulation environments.</li>
+        <li><strong>Manual / direct CBF design</strong> — handcrafted from system knowledge and analytical constraints. Simple and interpretable, but poorly scalable and largely an offline process.</li>
+        <li><strong>SOS-based CBF synthesis</strong> — barrier conditions formulated as a sum-of-squares optimisation, giving a convex SDP formulation with formal guarantees. Computationally expensive and limited in scalability.</li>
+        <li><strong>Learning-based CBFs</strong> — safety learned from demonstrations or constrained optimisation objectives, integrating safety directly into the learned policy. Suffers from weak sim-to-real safety transfer and verification challenges.</li>
+        <li><strong>This work (Zhang &amp; Hou)</strong> — real-time CBF switching synthesised from spatially shifted CLFs, giving a lightweight formulation suited to real-time obstacle avoidance.</li>
       </ul>
     </div>
+
+    <div class="content-block">
+      <h2>Core Idea: From One CLF to Many CBFs</h2>
+      <p>
+        The paper's central insight rests on <strong>translational symmetry</strong>: many
+        mobile-robot systems — ground vehicles, spacecraft, point-mass systems, even legged robots
+        on uneven terrain or cars on varying road conditions — have dynamics that don't depend on
+        absolute position. This means a single, well-designed Control Lyapunov Function (CLF),
+        whose region of attraction is computed once, can be spatially shifted to any point in free
+        space and reinterpreted as a locally valid Control Barrier Function (CBF) there.
+      </p>
+      <p>
+        Concretely, for every point <em>q</em> in free space, the framework computes a CBF by
+        combining the region of attraction of the CLF translated to <em>q</em> with a
+        <strong>collision-free margin</strong> computed relative to nearby obstacles — ensuring
+        the resulting barrier function stays positive (and therefore safe) precisely where needed.
+        The minimiser of this combined function is obtained in closed form (via a Schur complement
+        argument and Cholesky decomposition), which is what makes the synthesis fast enough to run
+        online rather than requiring offline computation for every new environment.
+      </p>
+      <p>
+        Because the underlying CLF already guarantees stability within its region of attraction,
+        and that property is preserved exactly under translation, <strong>one stability proof
+        for the CLF directly implies validity of every CBF generated by shifting it</strong> —
+        this is the key reason the method needs only a single CLF to generate arbitrarily many
+        valid, position-specific CBFs.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>CBF Switching</h2>
+      <p>
+        Since multiple candidate CBFs (one per nearby obstacle/region) may be valid at a given
+        instant, the framework includes an <strong>autonomous switching mechanism</strong>: at
+        each switching interval (lower-bounded to avoid Zeno behaviour — infinitely fast
+        switching), the robot evaluates all candidate barrier functions and activates the
+        <em>least restrictive</em> one, reducing unnecessary conservatism while still guaranteeing
+        safety. The active CBF is then enforced via a real-time <strong>CBF-QP</strong> that
+        finds the minimum deviation from the nominal control input needed to satisfy the safety
+        constraint.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Reproduction &amp; Simulation Setup</h2>
+      <p>
+        To validate the paper's claims, its simulation was reproduced on a planar two-rotor
+        system:
+      </p>
+      <ul>
+        <li>A quadratic CLF was synthesised via LQR, with the Lyapunov matrix obtained from the solution to the algebraic Riccati equation.</li>
+        <li>Nominal control inputs were generated using <strong>A*</strong> path planning on a 2D grid map from the current position to the goal, with the nominal input updated according to the expected direction of travel along the planned route — and replanned if the robot deviated from the route.</li>
+        <li>The CBF-QP was solved online at each timestep to enforce the active barrier constraint while tracking the nominal A* path as closely as safety allowed.</li>
+      </ul>
+    </div>
+
     <div class="content-block">
       <h2>Results &amp; Media</h2>
       <div class="media-grid">
         <div class="media-item">
-          <div class="media-placeholder">[ Add: 3D trajectory plot ]</div>
-          <p class="media-caption">// 3D safe navigation trajectory</p>
+          <div class="media-placeholder">[ Add: 3D / planar trajectory plot ]</div>
+          <p class="media-caption">Reproduced trajectory — planar two-rotor system with A* nominal path</p>
         </div>
         <div class="media-item">
-          <div class="media-placeholder">[ Add: CBF value over time ]</div>
-          <p class="media-caption">// Safety constraint satisfaction</p>
+          <div class="media-placeholder">[ Add: CBF value h(x) over time ]</div>
+          <p class="media-caption">Safety constraint satisfaction — h(x) remains positive throughout</p>
         </div>
       </div>
+      <p style="margin-top: 1rem;">
+        After fine-tuning gains and parameters, the controller converged successfully, with the
+        barrier value <em>h(x)</em> remaining positive throughout — confirming safety was
+        maintained. A practical observation from the reproduction: tightening the Lyapunov
+        sublevel-set bound increased switching frequency and introduced visible chattering in the
+        control behaviour, highlighting a real tuning tradeoff the paper doesn't fully explore.
+      </p>
     </div>
+
+    <div class="content-block">
+      <h2>Critical Analysis</h2>
+      <p>
+        Beyond reproducing the method, a central part of this presentation was identifying gaps
+        between the paper's theoretical guarantees and what's actually needed for practical
+        deployment:
+      </p>
+      <ul>
+        <li><strong>Incomplete synthesis details:</strong> the offline Lyapunov synthesis is underspecified — the linearisation point and Riccati operating point used to obtain the CLF are not stated, limiting reproducibility.</li>
+        <li><strong>Limited validation:</strong> the paper's experiments cover only a small number of map configurations, leaving the method's generality across more complex or denser environments untested.</li>
+        <li><strong>Safety without progress:</strong> the CBF formulation guarantees safe-set invariance, but not convergence — a robot can legally stay safe while bouncing between safe regions without making any guaranteed progress toward the goal.</li>
+        <li><strong>Switching artifacts:</strong> the switching rule can introduce discontinuities and chattering, as confirmed during reproduction when tightening the stability bound.</li>
+        <li><strong>Idealised world assumptions:</strong> the framework assumes a perfectly known, static obstacle map — localisation drift and state-estimation uncertainty, both unavoidable in real deployment, are not considered.</li>
+        <li><strong>Geometry approximation:</strong> non-square obstacles require conservative bounding approximations, which can falsely eliminate feasible corridors that a tighter representation would have allowed.</li>
+        <li><strong>Unclear practical advantage:</strong> the paper doesn't clearly demonstrate that this approach outperforms a simpler baseline — classical A* combined with robust waypoint tracking — on the static, known maps actually tested.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Conclusions</h2>
+      <ul>
+        <li>Safety and stability can genuinely be unified within a single framework via the CLF-to-CBF translation argument.</li>
+        <li>Online CBF synthesis successfully decouples computational cost from environment scale — a real advantage over SOS-based or fully offline approaches.</li>
+        <li>CBF switching must be managed carefully, since naive switching directly trades off against chattering and conservatism.</li>
+        <li>Real-world deployment exposes a real gap between the paper's theoretical guarantees and the assumptions (perfect localisation, static known maps) needed for those guarantees to hold.</li>
+      </ul>
+    </div>
+
   </div>
 </div>
 <footer>
