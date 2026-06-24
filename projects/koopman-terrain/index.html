@@ -17,7 +17,6 @@
     </ul>
   </div>
 </nav>
-
 <div class="project-hero">
   <div class="container">
     <a href="../../#research" class="back-link">← Back to Research</a>
@@ -26,59 +25,160 @@
       <span class="meta-item">Period: <span>Jul 2025 – Nov 2025</span></span>
       <span class="meta-item">Course: <span>Data Driven Control — Prof. Puduru Viswanadha Reddy</span></span>
     </div>
-    <h1 class="project-detail-title">Data-Driven Terrain Detection for Quadruped Locomotion</h1>
+    <h1 class="project-detail-title">Modelling Quadruped Leg Dynamics on Deformable Terrains Using Data-Driven Koopman Operators</h1>
     <p class="project-detail-intro">
-      Approximated quadruped leg dynamics as a Koopman-based switched dynamic system,
-      distinguishing swing and stance phases from encoder data alone — and predicting terrain
-      stiffness from just a few seconds of stance data.
+      A critical presentation and simulation-based extension of Krolicki et al.'s switched-Koopman
+      approach to terrain-aware quadruped leg modelling — implementing the method on a custom
+      simulation across three terrain types, and identifying concrete gaps in the original paper's
+      reproducibility and assumptions.
     </p>
   </div>
 </div>
-
 <div class="project-content">
   <div class="container">
 
     <div class="content-block">
-      <h2>Motivation</h2>
+      <h2>Problem Context</h2>
       <p>
-        Terrain-adaptive locomotion typically requires dedicated force/torque sensors or expensive
-        exteroceptive sensing. This project asks: can we infer terrain stiffness from proprioceptive
-        leg dynamics alone, using a data-driven approach?
+        Quadruped robots are used in search and rescue, agriculture, inspection, and exploration —
+        settings where the terrain underfoot is rarely known in advance. Reliable legged locomotion
+        depends on accurately predicting how the ground will react to contact, but this is
+        fundamentally terrain-dependent, and existing approaches each trade off accuracy for cost
+        or generality:
+      </p>
+      <ul>
+        <li><strong>Sensor-based terrain sensing</strong> (Cong et al., Hutter et al.) — direct contact force computation, but vulnerable to sensor degradation.</li>
+        <li><strong>State estimation methods</strong> (Sebastian et al., Fink et al.) — model-based observer estimation needing no extra sensors, but degrades on soft outdoor terrain.</li>
+        <li><strong>Spring-damper models</strong> (Zhang et al., Bledt et al.) — simple and intuitive, but can't capture the full nonlinearity of robot-terrain interaction.</li>
+        <li><strong>Neural network-based methods</strong> (Cong et al., Hu &amp; Xiong) — capture nonlinear interactions, but require extensive training data and lack interpretability.</li>
+      </ul>
+      <p>
+        The paper at the center of this presentation — Krolicki et al. (2022) — proposes a fifth
+        approach: modelling the leg as a <strong>switched dynamical system</strong> and using
+        data-driven <strong>Koopman operators</strong> to approximate its dynamics directly from
+        joint states and torques, without dedicated terrain sensors.
       </p>
     </div>
 
     <div class="content-block">
-      <h2>Approach</h2>
+      <h2>Core Method</h2>
+      <p>
+        A quadruped leg doesn't behave as a single consistent dynamical system — its dynamics
+        change depending on whether the leg is in flight (no ground contact) or stance (ground
+        reaction forces acting), which means it can't be accurately approximated by a single
+        Koopman operator. The paper instead models the leg as a <strong>switched dynamical
+        system</strong>, with the model switching between flight and stance dynamics based on leg
+        height.
+      </p>
+      <p>
+        For each mode, the <strong>Koopman operator</strong> is approximated from data using
+        EDMDc (Extended Dynamic Mode Decomposition with control): snapshot data is generated from
+        the system, a dictionary of observable functions is chosen, and the Koopman matrices are
+        constructed from that snapshot data. Once approximated, <strong>eigen analysis</strong> of
+        the resulting Koopman generator reveals terrain-dependent structure in its spectrum —
+        in principle allowing terrain type to be inferred from the eigenvalues alone, with no
+        additional sensors beyond joint encoders and torque estimates.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Simulation &amp; Methodology</h2>
+      <p>
+        To evaluate the approach, the full pipeline was implemented and tested in simulation,
+        following the modelling → data collection → switched system → Koopman operator → eigen
+        analysis sequence:
+      </p>
       <ul>
-        <li>Approximated the leg dynamics as a <strong>switched dynamic system</strong> — one linear system for swing phase, another for stance — using the Koopman operator framework.</li>
-        <li>Simulated different terrain stiffness behaviors (rigid, soft, variable) and collected leg state data across each terrain type.</li>
-        <li>Computed approximate <strong>Koopman generators</strong> for each terrain condition from the collected data using EDMD (Extended Dynamic Mode Decomposition).</li>
-        <li>Performed <strong>eigen analysis</strong> of the stance-phase Koopman generators — eigenvalue structure encodes terrain stiffness and can discriminate terrain type.</li>
-        <li>Demonstrated accurate terrain stiffness prediction using just a few seconds of stance data, with no external force sensors.</li>
+        <li><strong>Dynamic &amp; kinematic modelling:</strong> trajectory generation feeds an inverse kinematics block producing target joint angles, tracked by a PD controller; forward dynamics and the leg Jacobian relate desired and actual torque to ground reaction forces, with reaction forces estimated from motor current.</li>
+        <li><strong>Data collection:</strong> separate datasets were collected for stance (ground reaction present, across terrains — sand, mulch, soil, pebble sand) and flight (no ground reaction, across multiple gaits).</li>
+        <li><strong>Terrain simulation:</strong> three deformable terrain behaviours were modelled — <em>mud-like</em> (strong nonlinear resistance that increases with depth and force-saturates), <em>sand-like</em> (granular media exhibiting quadratic and linear stiffness), and a third mud-variant that compresses easily and plateaus due to limited load-bearing capacity — with random Gaussian noise added to simulate slip and depth-measurement uncertainty.</li>
+        <li><strong>Koopman dictionary comparison:</strong> three dictionary choices were tested for the EDMDc approximation — linear terms only, up to quadratic terms, and a sinusoidal (sine/cosine) dictionary — to compare reconstruction accuracy.</li>
       </ul>
     </div>
 
     <div class="content-block">
-      <h2>Results &amp; Media</h2>
+      <h2>Simulation Results</h2>
+      <p>
+        Reconstruction accuracy was evaluated via RMSE, separately for flight and stance phases,
+        across all three terrains and all three dictionary choices:
+      </p>
       <div class="media-grid">
         <div class="media-item">
-          <div class="media-placeholder">[ Add: eigenvalue spectrum plot ]</div>
-          <p class="media-caption">// Koopman eigenvalue structure by terrain</p>
+          <div class="media-placeholder">[ Add: RMSE table — linear dictionary ]</div>
+          <p class="media-caption">RMSE, linear dictionary (flight: 0.006–0.0067; stance: 0.0307–0.0411)</p>
         </div>
         <div class="media-item">
-          <div class="media-placeholder">[ Add: terrain classification result ]</div>
-          <p class="media-caption">// Stiffness prediction accuracy</p>
+          <div class="media-placeholder">[ Add: RMSE table — quadratic dictionary ]</div>
+          <p class="media-caption">RMSE, quadratic dictionary (flight: 0.0052–0.0055; stance: 0.0297–0.0413)</p>
         </div>
         <div class="media-item">
-          <div class="media-placeholder">[ Add: simulation trajectory ]</div>
-          <p class="media-caption">// Simulated terrain behaviors</p>
+          <div class="media-placeholder">[ Add: RMSE table — sinusoidal dictionary ]</div>
+          <p class="media-caption">RMSE, sine/cosine dictionary (flight: 0.0046–0.0052; stance: 0.0297–0.0409)</p>
+        </div>
+      </div>
+      <p style="margin-top: 1rem;">
+        Across all three dictionaries, flight-phase reconstruction was consistently more accurate
+        than stance-phase reconstruction — expected, since stance dynamics involve the added
+        complexity of terrain interaction. The quadratic and sinusoidal dictionaries gave modest
+        accuracy improvements over the linear dictionary, particularly during flight.
+      </p>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: linear dictionary simulation plot ]</div>
+          <p class="media-caption">Simulation results — linear dictionary</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: quadratic dictionary simulation plot ]</div>
+          <p class="media-caption">Simulation results — quadratic dictionary</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: sinusoidal dictionary simulation plot ]</div>
+          <p class="media-caption">Simulation results — sinusoidal dictionary</p>
         </div>
       </div>
     </div>
 
+    <div class="content-block">
+      <h2>Conclusions (from the paper)</h2>
+      <ul>
+        <li>The switched Koopman model accurately predicts leg dynamics across deformable terrains.</li>
+        <li>Terrain properties appear clearly in the generator spectrum and eigenfunctions.</li>
+        <li>Soft terrains shift eigenvalues toward the real axis, indicating increased damping; stiff terrains retain oscillatory modes.</li>
+        <li>These spectral signatures enable terrain classification without dedicated terrain sensors.</li>
+        <li>The approach requires only joint states and torques — lightweight, data-driven, and scalable.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Critical Analysis</h2>
+      <p>
+        Beyond presenting and reproducing the method in simulation, a key part of this project was
+        critically evaluating the original paper's claims and identifying gaps that limit its
+        practical reproducibility and robustness:
+      </p>
+      <ul>
+        <li><strong>Reproducibility:</strong> the dictionary functions used in the original paper aren't reported, making the results difficult to reproduce exactly.</li>
+        <li><strong>Chicken-and-egg problem:</strong> terrain identification depends on controller stability, but controller stability itself may depend on already knowing the terrain — a circular dependency the paper doesn't address.</li>
+        <li><strong>Data preprocessing:</strong> left unspecified; poor filtering is known to produce unstable Koopman spectra, which directly undermines the eigenvalue-based terrain classification claim.</li>
+        <li><strong>Data sufficiency:</strong> no guidance is given on how much training data is required, or whether a single training session generalises.</li>
+        <li><strong>Robustness:</strong> no tests against impulsive or highly irregular terrain (e.g. pebbles), which are a realistic and more challenging case than the smooth deformable terrains studied.</li>
+        <li><strong>Dictionary sensitivity:</strong> no sensitivity analysis with respect to dictionary size or composition.</li>
+        <li><strong>Real-time feasibility:</strong> no discussion of the computational constraints involved in running this terrain identification approach in real time on hardware.</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Connection to Ongoing Work</h2>
+      <p>
+        This project's switched-Koopman terrain modelling approach is the conceptual basis for the
+        sensor-less terrain perception now being integrated into my
+        <a href="../quadruped-leg/">M.Tech thesis quadruped leg platform</a> — extending the
+        method from simulation-only study and critique toward validation on physical hardware.
+      </p>
+    </div>
+
   </div>
 </div>
-
 <footer>
   <p>© 2026 Gowrynanda PS · <a href="../../#research">← All Projects</a></p>
 </footer>
