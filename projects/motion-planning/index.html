@@ -5,6 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Motion Planning Algorithms — Gowrynanda PS</title>
   <link rel="stylesheet" href="../../assets/css/style.css" />
+  <style>
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .data-table th, .data-table td {
+      padding: 0.6rem 0.9rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table th {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(0,212,180,0.05);
+    }
+    .data-table td {
+      color: rgba(240,237,232,0.85);
+      font-family: var(--font-mono);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .table-caption {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 <body>
 <nav>
@@ -25,11 +61,14 @@
       <span class="meta-item">Type: <span>Course Project</span></span>
       <span class="meta-item">Period: <span>Jan 2025 – May 2025</span></span>
       <span class="meta-item">Course: <span>Motion Planning — Prof. Nirav Patel, IIT Madras</span></span>
+      <span class="meta-item">Co-developed with: <span>Bhavnashri A.</span></span>
     </div>
-    <h1 class="project-detail-title">Critical Comparison of Motion Planning Algorithms for a Mobile Manipulator with a 5-DOF Arm</h1>
+    <h1 class="project-detail-title">Motion Planning for a Mobile Manipulator in a Static Environment</h1>
     <p class="project-detail-intro">
-      Benchmarked A*, PRM, RRT, and RRT* on a KUKA YouBot (5-DOF arm + mobile base) in CoppeliaSim,
-      with gradient-descent path smoothing applied to RRT output for real-world deployability.
+      Implemented and benchmarked A*, PRM, RRT, and RRT* for a KUKA YouBot mobile manipulator
+      (3-DOF base + 5-DOF arm), then designed a hybrid planning pipeline — A* for the base, RRT
+      with a larger step size for the arm, followed by gradient-descent trajectory smoothing —
+      achieving a 5x speedup in planning time with only a 2% increase in path length.
     </p>
   </div>
 </div>
@@ -38,57 +77,236 @@
   <div class="container">
 
     <div class="content-block">
-      <h2>Setup</h2>
+      <h2>Problem Setup</h2>
       <p>
-        The KUKA YouBot combines a differential-drive mobile base with a 5-DOF manipulator arm,
-        requiring planning in both the base's 2D workspace and the arm's high-dimensional joint space.
-        The simulation environment was built in CoppeliaSim with obstacle-cluttered scenarios.
+        The KUKA YouBot combines an omnidirectional mobile base with a 5-DOF manipulator arm,
+        giving an 8-DOF system overall. Motion planning was studied for both subsystems — separately
+        and jointly — in a static, obstacle-cluttered CoppeliaSim environment, with the goal of
+        identifying a planning strategy that's both computationally efficient and produces
+        dynamically reasonable paths.
+      </p>
+      <p>
+        For base planning, the YouBot's roughly rectangular footprint (≈58 cm × 38 cm) was
+        approximated as a circle of radius ≈35 cm for obstacle inflation in the occupancy grid,
+        since most grid-based planners assume a circular robot footprint.
       </p>
     </div>
 
     <div class="content-block">
-      <h2>Algorithms Compared</h2>
-      <ul>
-        <li><strong>Mobile Base:</strong> A* (grid-based, optimal) vs PRM (probabilistic roadmap, sampling-based).</li>
-        <li><strong>Arm (5-DOF joint space):</strong> RRT vs RRT* — comparing path quality, planning time, and smoothness.</li>
-        <li><strong>Path Smoothing:</strong> Gradient descent post-processing applied to RRT-generated arm paths to eliminate excessive joint-space jitter and improve real-world deployability.</li>
-      </ul>
-    </div>
-
-    <div class="content-block">
-      <h2>Key Findings</h2>
-      <ul>
-        <li>Decoupled planning (base and arm planned separately) outperformed joint planning in computation time, since A* solves the 2D base plan very quickly.</li>
-        <li>RRT* produced smoother arm paths than RRT at the cost of planning time; gradient-descent smoothing largely closed this gap for RRT.</li>
-        <li>Gradient-descent smoothing was essential for making RRT paths practically deployable on real hardware without excessive jerk.</li>
-      </ul>
-    </div>
-
-    <div class="content-block">
-      <h2>Results &amp; Media</h2>
+      <h2>Base Planning: A* vs. PRM</h2>
+      <p>
+        <strong>A*</strong> was run on the inflated occupancy grid using 8-connected node expansion
+        (to reflect the YouBot's omnidirectional movement) with Euclidean distance as the heuristic
+        — giving a deterministic, optimal path efficiently.
+      </p>
+      <p>
+        <strong>PRM</strong> was implemented as a sampling-based alternative: random collision-free
+        configurations are sampled and connected into a roadmap, with Dijkstra's algorithm used to
+        extract the shortest path once the roadmap is built. PRM was benchmarked across four sample
+        sizes to study the resulting tradeoffs:
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr><th>Number of Nodes</th><th>Memory (kB)</th><th>Time (s)</th><th>Path Length (m)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>150</td><td>36.1</td><td>0.19</td><td>4.49</td></tr>
+          <tr><td>500</td><td>127.8</td><td>2.03</td><td>4.61</td></tr>
+          <tr><td>750</td><td>367.3</td><td>4.71</td><td>4.52</td></tr>
+          <tr><td>1000</td><td>395.8</td><td>8.15</td><td>4.58</td></tr>
+        </tbody>
+      </table>
+      <p class="table-caption">PRM performance vs. number of sampled nodes</p>
+      <p style="margin-top: 1rem;">
+        More samples improved roadmap connectivity but gave diminishing returns on path quality,
+        while memory and computation time rose sharply. Critically, PRM's paths were consistently
+        longer than A*'s optimal path regardless of sample count — so <strong>A* was selected</strong>
+        for base planning, since the task was a discrete 2D navigation problem where A*'s
+        determinism and speed clearly outperformed PRM's probabilistic approach.
+      </p>
       <div class="media-grid">
         <div class="media-item">
-          <div class="media-placeholder">[ Add: CoppeliaSim simulation screenshot ]</div>
-          <p class="media-caption">// KUKA YouBot in CoppeliaSim</p>
+          <div class="media-placeholder">[ Add: A* path on inflated occupancy grid ]</div>
+          <p class="media-caption">A* path on the inflated occupancy grid</p>
         </div>
         <div class="media-item">
-          <div class="media-placeholder">[ Add: A* vs PRM path comparison ]</div>
-          <p class="media-caption">// Base path: A* vs PRM</p>
-        </div>
-        <div class="media-item">
-          <div class="media-placeholder">[ Add: RRT smoothing comparison ]</div>
-          <p class="media-caption">// Arm path before/after gradient smoothing</p>
+          <div class="media-placeholder">[ Add: PRM roadmaps at N=150,500,750,1000 ]</div>
+          <p class="media-caption">PRM roadmaps and paths across sample sizes</p>
         </div>
       </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Arm Planning: RRT vs. RRT*</h2>
+      <p>
+        For the 5-DOF arm, <strong>RRT</strong> was implemented with tunable step size and goal
+        bias, using CoppeliaSim's built-in collision detection (including self-collision) to
+        validate every edge before it's added to the tree. Step size and goal bias were swept to
+        characterise their effect on planning performance:
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr><th>Step Size (rad)</th><th>Iterations</th><th>Goal Bias</th><th>Time (s)</th><th>Memory (kB)</th><th>Path Length (m)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1.0</td><td>40</td><td>1/20</td><td>44.7</td><td>3335</td><td>1.40</td></tr>
+          <tr><td>1.0</td><td>30</td><td>1/15</td><td>30.5</td><td>3172</td><td>1.43</td></tr>
+          <tr><td>1.0</td><td>20</td><td>1/10</td><td>20.0</td><td>2987</td><td>1.60</td></tr>
+          <tr><td>0.1</td><td>700</td><td>1/20</td><td>562.3</td><td>12448</td><td>1.50</td></tr>
+          <tr><td>0.1</td><td>530</td><td>1/15</td><td>441.5</td><td>10191</td><td>1.50</td></tr>
+          <tr><td>0.1</td><td>340</td><td>1/10</td><td>269.8</td><td>7444</td><td>1.57</td></tr>
+        </tbody>
+      </table>
+      <p class="table-caption">RRT performance across step size and goal bias configurations</p>
+      <p style="margin-top: 1rem;">
+        A larger step size (1 rad) drastically reduced both computation time and memory at the
+        cost of slightly jerkier paths, while a finer step size (0.1 rad) gave smoother, more
+        granular paths at a steep computational premium — over 10x the planning time for
+        comparable path lengths.
+      </p>
+      <p>
+        <strong>RRT*</strong> was then evaluated head-to-head against RRT under matched parameters
+        (step size 0.1 rad, goal bias 1/20, rewiring radius 0.5) to test whether its rewiring
+        mechanism would justify its added cost:
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr><th>Algorithm</th><th>Avg. Path Length (m)</th><th>Avg. Time (s)</th><th>Avg. Memory (kB)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>RRT</td><td>1.497</td><td>562.3</td><td>12448.0</td></tr>
+          <tr><td>RRT*</td><td>1.440</td><td>1236.9</td><td>12038.2</td></tr>
+        </tbody>
+      </table>
+      <p class="table-caption">RRT vs. RRT* under matched parameters</p>
+      <p style="margin-top: 1rem;">
+        RRT* achieved only a modest 3.8% path-length improvement (1.440 m vs 1.497 m) while taking
+        more than <strong>2x longer to compute</strong> (1237 s vs 562 s) — a tradeoff that didn't
+        hold up for time-constrained planning, so <strong>RRT was preferred</strong> for arm
+        planning despite RRT*'s theoretical optimality guarantees.
+      </p>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: RRT tree in 3D task space ]</div>
+          <p class="media-caption">RRT exploration tree, 3D task space</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: RRT* tree showing rewiring structure ]</div>
+          <p class="media-caption">RRT* tree, refined by rewiring</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: End-effector trajectory plot ]</div>
+          <p class="media-caption">End-effector trajectory of the final RRT path</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Combined (8-DOF) Planning</h2>
+      <p>
+        Planning was also extended to the full 8-DOF configuration space (base x, y, θ plus 5 arm
+        joint angles) using RRT directly in the combined space, simultaneously sampling base and
+        arm configurations and checking each for collisions. While this in principle allows
+        globally optimal coordinated motion, it proved highly computationally intensive, and
+        revealed a more fundamental problem:
+      </p>
+      <ul>
+        <li>The arm consistently finished its motion well before the base reached the goal — the two subsystems weren't naturally coordinated by joint sampling alone.</li>
+        <li>Very small step sizes failed to find any valid path within 1000 iterations.</li>
+        <li>Since system dynamics weren't modelled, combined motions involving abrupt or large arm joint movements sometimes produced behaviour that would be <strong>dynamically unstable</strong> on real hardware — including a risk of the platform toppling.</li>
+      </ul>
+      <p>
+        This pushed the project's focus back toward separate base/arm planning, prioritising
+        dynamic feasibility over the theoretical global optimality of joint-space planning.
+      </p>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: Combined RRT exploration tree ]</div>
+          <p class="media-caption">Combined (8-DOF) RRT exploration tree</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: Combined system end-effector trajectory ]</div>
+          <p class="media-caption">Combined system end-effector trajectory</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Trajectory Smoothing</h2>
+      <p>
+        To make RRT's relatively jerky raw paths deployable on real hardware, a gradient-descent
+        smoothing stage was applied post-planning. The optimisation minimises a composite cost
+        combining a smoothness term (weighted joint velocity, acceleration, and jerk) and a joint
+        limit penalty (keeping the trajectory near the center of each joint's range), with the
+        start and goal configurations held fixed throughout.
+      </p>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: Joint angles before/after smoothing ]</div>
+          <p class="media-caption">Joint angle trajectories, before vs. after smoothing</p>
+        </div>
+        <div class="media-item">
+          <div class="media-placeholder">[ Add: Joint velocities & accelerations before/after ]</div>
+          <p class="media-caption">Joint velocities and accelerations, before vs. after</p>
+        </div>
+      </div>
+      <p style="margin-top: 1rem;">
+        Smoothing produced visibly more gradual, continuous joint angle profiles and substantially
+        reduced peak joint velocities and accelerations — directly reducing mechanical stress and
+        improving the likelihood of safe execution on physical hardware.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Final Hybrid Pipeline</h2>
+      <p>
+        Combining the lessons from every prior experiment, the final pipeline uses <strong>A* for
+        the base</strong>, <strong>RRT with a larger step size for the arm</strong> (trading raw
+        path smoothness for speed), and a final <strong>trajectory smoothing</strong> stage to
+        recover that lost smoothness without paying RRT's fine-step-size computational cost:
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th>Separate Planning</th><th>Final Hybrid Algorithm</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>RRT Step Size (rad)</td><td>0.1</td><td>0.5</td></tr>
+          <tr><td>Trajectory Smoothing</td><td>No</td><td>Yes</td></tr>
+          <tr><td>Planning Time (s)</td><td>441</td><td>80</td></tr>
+          <tr><td>Memory Usage (kB)</td><td>10191</td><td>3992</td></tr>
+          <tr><td>Path Length (m)</td><td>1.498</td><td>1.532</td></tr>
+        </tbody>
+      </table>
+      <p class="table-caption">Separate (unsmoothed, fine step) planning vs. the final hybrid pipeline</p>
+      <p style="margin-top: 1rem;">
+        The hybrid pipeline cut planning time from 441 s to 80 s — a <strong>5.5x speedup</strong>
+        — and reduced memory usage by over 60%, at the cost of only a 2.3% increase in path length.
+        This is the central practical result of the project: a large step size plus post-hoc
+        smoothing recovers nearly all the benefit of a fine-step-size search at a fraction of the
+        computational cost.
+      </p>
     </div>
 
     <div class="content-block">
       <h2>Demo Video</h2>
-      <div class="media-item" style="max-width:700px;">
-        <div class="media-placeholder" style="height:300px;">[ Add CoppeliaSim demo video ]</div>
-        <p class="media-caption">// Full planning demo in simulation</p>
+      <p>Final hybrid algorithm running end-to-end in CoppeliaSim:</p>
+      <div class="video-wrap">
+        <iframe src="https://drive.google.com/file/d/1ATVUy6V7pln1QathyLn54VGWP5mdDIn_/preview" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
+
+    <div class="content-block">
+      <h2>Limitations &amp; Future Work</h2>
+      <ul>
+        <li><strong>No tracking controller:</strong> the project focused purely on planning, with no controller to track the generated paths or correct for actuation/modelling deviations — a necessary addition for any real hardware deployment.</li>
+        <li><strong>Modular planning sacrifices global optimality:</strong> planning the base and arm separately is simpler to implement, but can leave the base in a suboptimal position that complicates the arm's subsequent motion.</li>
+        <li><strong>Dynamics not modelled:</strong> large RRT step sizes could produce jerky, dynamically infeasible motion if executed without a proper controller — kinodynamic planning or trajectory rollout methods would help close this gap.</li>
+        <li><strong>Geometric-only collision checking:</strong> future work should add manipulator singularity checks and smarter, informed sampling strategies to improve both safety and planning efficiency in high-dimensional spaces.</li>
+        <li><strong>Sequential base-then-arm execution:</strong> the arm currently waits for the base to fully stop before moving, creating unnecessary idle time; initiating arm motion while the base is still approaching the goal would produce more fluid, human-like coordinated behaviour.</li>
+        <li><strong>No base position optimisation:</strong> the base's final stopping position isn't optimised for arm manipulability — ideally the base would position itself so the arm operates near the middle of its reachable workspace, away from joint limits.</li>
+      </ul>
+    </div>
+
 
   </div>
 </div>
