@@ -5,6 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Koopman Terrain Detection — Gowrynanda PS</title>
   <link rel="stylesheet" href="../../assets/css/style.css" />
+  <style>
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .data-table th, .data-table td {
+      padding: 0.6rem 0.9rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table th {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(0,212,180,0.05);
+    }
+    .data-table td {
+      color: rgba(240,237,232,0.85);
+      font-family: var(--font-mono);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .table-caption {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .table-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
 <nav>
@@ -102,18 +144,45 @@
         across all three terrains and all three dictionary choices. We can note here that the RMSE 
         errors decreased with increase in dictionary elements.
       </p>
-      <div class="media-grid">
-        <div class="media-item">
-          <img src="../../assets/images/rmse_linear_table.png" alt="RMSE Linear" style="width: 100%; object-fit: contain; background: var(--navy-light);" />
-          <p class="media-caption">RMSE, linear dictionary (flight: 0.006–0.0067; stance: 0.0307–0.0411)</p>
+       <div class="table-grid">
+        <div>
+          <table class="data-table">
+            <thead>
+              <tr><th>RMSE</th><th>Flight</th><th>Stance</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Mud</td><td>0.0067</td><td>0.0307</td></tr>
+              <tr><td>Mulch</td><td>0.0061</td><td>0.0360</td></tr>
+              <tr><td>Sand</td><td>0.0060</td><td>0.0411</td></tr>
+            </tbody>
+          </table>
+          <p class="table-caption">Linear dictionary (polynomial terms up to degree 1)</p>
         </div>
-        <div class="media-item">
-          <img src="../../assets/images/rmse_quadratic_table.png" alt="RMSE Quadratic" style="width: 100%; object-fit: contain; background: var(--navy-light);" />
-          <p class="media-caption">RMSE, quadratic dictionary (flight: 0.0052–0.0055; stance: 0.0297–0.0413)</p>
+        <div>
+          <table class="data-table">
+            <thead>
+              <tr><th>RMSE</th><th>Flight</th><th>Stance</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Mud</td><td>0.0055</td><td>0.0297</td></tr>
+              <tr><td>Mulch</td><td>0.0051</td><td>0.0359</td></tr>
+              <tr><td>Sand</td><td>0.0052</td><td>0.0413</td></tr>
+            </tbody>
+          </table>
+          <p class="table-caption">Quadratic dictionary (polynomial terms up to degree 2)</p>
         </div>
-        <div class="media-item">
-          <img src="../../assets/images/rmse_sine_table.png" alt="RMSE Sinusoidal" style="width: 100%; object-fit: contain; background: var(--navy-light);" />
-          <p class="media-caption">RMSE, sine/cosine dictionary (flight: 0.0046–0.0052; stance: 0.0297–0.0409)</p>
+        <div>
+          <table class="data-table">
+            <thead>
+              <tr><th>RMSE</th><th>Flight</th><th>Stance</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Mud</td><td>0.0055</td><td>0.0297</td></tr>
+              <tr><td>Mulch</td><td>0.0046</td><td>0.0358</td></tr>
+              <tr><td>Sand</td><td>0.0052</td><td>0.0409</td></tr>
+            </tbody>
+          </table>
+          <p class="table-caption">Sinusoidal dictionary (polynomial + sine/cosine terms)</p>
         </div>
       </div>
       <p style="margin-top: 1rem;">
