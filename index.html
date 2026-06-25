@@ -19,6 +19,7 @@
       <li><a href="#education">Education</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="hamburger" id="hamburger" onclick="toggleNav()">
@@ -81,11 +82,11 @@
         <p>
           Beyond legged robots, I've worked on cable-driven underwater manipulators
           (with Oceaneering, USA), smart compression garments, and autonomous afforestation drones.
-          I also enjoy teaching — I was Shaastra workshop instructor teaching Control systems to over 120 students 
-          and I was a Teaching Assistant for Motion Planning and Robot Control courses at IIT Madras. 
+          I also enjoy teaching — I was a Shaastra workshop instructor teaching control systems to over 120 students,
+          and I've served as a Teaching Assistant for the Motion Planning and Robot Control courses at IIT Madras.
         </p>
         <p>
-          Outside the lab: I enjoy acyrlic painting, exploring new cuisines and powerlifting.
+          Outside the lab: I enjoy acrylic painting, exploring new cuisines, and powerlifting.
         </p>
       </div>
       <div class="stats-grid">
@@ -273,27 +274,43 @@
     <p class="section-label" style="margin-bottom: 1.2rem;">Course Projects</p>
     <div class="projects-grid">
 
-      <a href="projects/cbf-navigation/" class="project-card">
-        <img src="assets/images/cbf_trajectory.png" alt="CBF Trajectory" class="project-img" />
+      <a href="projects/koopman-terrain/" class="project-card">
+        <img src="assets/images/koopman_thumb.png" alt="Data Driven Terrain Detection" class="project-img" />
         <div class="project-body">
-          <p class="project-tag">Course Project · Jan 2026 – May 2026</p>
-          <h3 class="project-title">Lyapunov-Based CBF for Safe 3D Navigation</h3>
+          <p class="project-tag">Paper Presentation &amp; Reproduction · Jul 2025 – Nov 2025</p>
+          <h3 class="project-title">Data-Driven Terrain Detection for Quadruped Locomotion</h3>
           <p class="project-desc">
-            Developed a spatially-shifted Control Barrier Function framework using a single CLF and
-            translational symmetry. Real-time CBF-QP optimisation at 30 ms on a 10-state quadrotor model.
+            Presented and reproduced Krolicki et al.'s switched-Koopman approach to terrain-aware
+            leg modelling — implementing the simulation across three terrains and three dictionary
+            choices, and critiquing the original paper's reproducibility and assumptions.
           </p>
           <span class="project-arrow">View project →</span>
         </div>
       </a>
 
-      <a href="projects/koopman-terrain/" class="project-card">
-        <img src="assets/images/koopman_thumb.png" alt="Data Driven Terrain Detection" class="project-img" />
+      <a href="projects/cbf-navigation/" class="project-card">
+        <img src="assets/images/cbf_trajectory.png" alt="CBF Trajectory" class="project-img" />
         <div class="project-body">
-          <p class="project-tag">Course Project · Jul 2025 – Nov 2025</p>
-          <h3 class="project-title">Data-Driven Terrain Detection for Quadruped Locomotion</h3>
+          <p class="project-tag">Paper Presentation &amp; Critique · Jan 2026 – May 2026</p>
+          <h3 class="project-title">Lyapunov-Based CBF for Safe 3D Navigation</h3>
           <p class="project-desc">
-            Approximated quadruped leg dynamics as a switched dynamic system using Koopman operators.
-            Eigen analysis of stance-phase generators predicts terrain stiffness from just a few seconds of data.
+            Presented and reproduced Zhang &amp; Hou's spatially-shifted Control Barrier Function
+            framework — implementing the planar two-rotor simulation and critically evaluating the
+            method's practical limitations.
+          </p>
+          <span class="project-arrow">View project →</span>
+        </div>
+      </a>
+
+      <a href="projects/motion-planning/" class="project-card">
+        <div class="project-img-placeholder">[ motion-planning.jpg ]</div>
+        <div class="project-body">
+          <p class="project-tag">Course Project · Jan 2025 – May 2025</p>
+          <h3 class="project-title">Motion Planning for a Mobile Manipulator</h3>
+          <p class="project-desc">
+            Benchmarked A*, PRM, RRT, and RRT* on a KUKA YouBot (5-DOF arm + mobile base) in
+            CoppeliaSim, and designed a hybrid pipeline with trajectory smoothing achieving a
+            5x planning speedup.
           </p>
           <span class="project-arrow">View project →</span>
         </div>
@@ -305,8 +322,8 @@
           <p class="project-tag">Course Project · Jul 2024 – Nov 2024</p>
           <h3 class="project-title">Dynamic Characterization of an Underwater Flexible Single-Link Manipulator</h3>
           <p class="project-desc">
-            Modelled a soft underwater robot as a rotating deflecting beam using FEM. Determined resonance
-            frequency via frequency-marching simulation.
+            Modelled a soft underwater robot as a rotating deflecting beam using FEM, validated
+            against published literature, and corrected errors found in the reference paper.
           </p>
           <span class="project-arrow">View project →</span>
         </div>
@@ -315,24 +332,11 @@
       <a href="projects/multiagent-optimal/" class="project-card">
         <div class="project-img-placeholder">[ multiagent-optimal.jpg ]</div>
         <div class="project-body">
-          <p class="project-tag">Course Project · Jan 2025 – May 2025</p>
-          <h3 class="project-title">Multi-Agent Planning Under Limited Communication via Game Theory</h3>
+          <p class="project-tag">Paper Presentation &amp; Reproduction · Jan 2025 – May 2025</p>
+          <h3 class="project-title">Differential Games with Limited Communication</h3>
           <p class="project-desc">
-            Formulated multi-agent planning as a differential game with Nash equilibrium. Used
-            Hamilton-Jacobi-Bellman equations on a directed graph; validated in MATLAB.
-          </p>
-          <span class="project-arrow">View project →</span>
-        </div>
-      </a>
-
-      <a href="projects/motion-planning/" class="project-card">
-        <div class="project-img-placeholder">[ motion-planning.jpg ]</div>
-        <div class="project-body">
-          <p class="project-tag">Course Project · Jan 2025 – May 2025</p>
-          <h3 class="project-title">Critical Comparison of Motion Planning Algorithms for a Mobile Manipulator</h3>
-          <p class="project-desc">
-            Benchmarked A*, PRM, RRT, and RRT* on a KUKA YouBot (5-DOF arm + mobile base) in CoppeliaSim.
-            Gradient-descent path smoothing applied to RRT output for real-world deployability.
+            Presented Mylvaganam &amp; Astolfi's framework for decentralised N-player differential
+            games, and reproduced the linear-quadratic case in a 3-agent MATLAB simulation.
           </p>
           <span class="project-arrow">View project →</span>
         </div>
@@ -341,6 +345,7 @@
     </div>
   </div>
 </section>
+
 <!-- ── Achievements ── -->
 <section id="achievements">
   <div class="container">
@@ -349,7 +354,8 @@
       <h2 class="section-title">Scholastic &amp; Other Highlights</h2>
       <div class="section-divider"></div>
     </div>
-    <div class="achievement-item">
+    <div class="achievements-list">
+      <div class="achievement-item">
         <span class="achievement-dot"></span>
         <p class="achievement-text">Patent granted (No. 549953) for Mass Afforestation Drone design</p>
       </div>
@@ -372,6 +378,7 @@
     </div>
   </div>
 </section>
+
 <!-- ── Experience ── -->
 <section id="experience">
   <div class="container">
@@ -390,6 +397,19 @@
       </div>
 
       <div class="edu-item">
+        <p class="edu-year">Jan 2025</p>
+        <p class="edu-school">Workshop Instructor — Robotics 101, Shaastra IIT Madras</p>
+        <p class="edu-degree">Control Systems &amp; Simulation</p>
+        <p class="edu-grade">Independently taught a 6-hour workshop on robotics control and simulation to over 120 students.</p>
+        <div class="media-grid" style="margin-top: 1.2rem; max-width: 600px;">
+          <div class="media-item">
+            <img src="assets/images/shaastra-workshop-1.jpg" alt="Teaching the Shaastra robotics workshop" loading="lazy" />
+            <p class="media-caption">Teaching control systems at Shaastra Robotics 101</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-item">
         <p class="edu-year">May 2024 – Jul 2024</p>
         <p class="edu-school">Product Supply Intern — Procter &amp; Gamble</p>
         <p class="edu-degree">High Density Liquid Detergent Manufacturing</p>
@@ -399,11 +419,12 @@
     </div>
   </div>
 </section>
+
 <!-- ── Contact ── -->
 <section id="contact">
   <div class="container">
     <div class="section-header" style="text-align:center;">
-      <p class="section-label">06 / Contact</p>
+      <p class="section-label">07 / Contact</p>
       <h2 class="section-title">Get In Touch</h2>
       <div class="section-divider" style="margin: 1rem auto 0;"></div>
     </div>
